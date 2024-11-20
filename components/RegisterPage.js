@@ -18,9 +18,8 @@ export class RegisterPage extends HTMLElement {
         const form = this.querySelector('form');
 
         form.addEventListener("submit", async (event) => {
-            event.preventDefault(); // Prevent page reload on form submission
-
-            // Collect form data using FormData
+            event.preventDefault();
+        
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
 
@@ -41,7 +40,6 @@ export class RegisterPage extends HTMLElement {
                 }
 
                 const result = await response.json();
-                // display message
                 const xx = document.createElement("h1")
                 xx.textContent= "sdf";
                 document.querySelector("main").appendChild(xx)

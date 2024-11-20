@@ -27,7 +27,7 @@
             <a class="navlink material-symbols-outlined" id="" href="/">home</a>
             <a class="navlink material-symbols-outlined" id="" href="/books">book</a>
             <a class="navlink material-symbols-outlined" id="" href="/register">how_to_reg</a>
-            <a class="navlink material-symbols-outlined" id="" href="/">login</a>
+            <a class="navlink material-symbols-outlined" id="" href="/login">login</a>
             <span id="badge" hidden></span>
         </nav>
     </header>
@@ -66,9 +66,25 @@
 
                 <button type="submit">Register</button>
             </form>
+        </section>
+    </template>
+    <template id="login-template">
+        <section>
+            <h1>Login now!</h1>
+
+            <form id="loginForm" novalidate>
+                <label>
+                    Username:
+                    <input type="text" name="username" required>
+                </label>
+                <label>
+                    Password:
+                    <input type="password" name="password" required>
+                </label>
+                <button type="submit">Login</button>
+            </form>
             
         </section>
     </template>
-
 </body>
 </html>

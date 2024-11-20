@@ -40,6 +40,15 @@ const router = {
             case "/register":
                 page = document.createElement("register-page");
                 break;
+            case "/login":
+                page = document.createElement("login-page");
+                break;
+            case "/add-book":
+                page = document.createElement("login-page");
+                break;
+            case "/your-books":
+                page = document.createElement("login-page");
+                break;
         }
 
         if(page){
