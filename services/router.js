@@ -1,4 +1,4 @@
-// import loadGuiElement from "../utilities/loadGuiElement.js";
+import loadGuiElement from "../utilities/loadGuiElement.js";
 
 const router = {
     init: ()=> {
@@ -22,8 +22,6 @@ const router = {
 
 
     go: (route, save = true) => {
-
-        
         
         if(save){
             history.pushState({ route }, "", route)
@@ -39,13 +37,16 @@ const router = {
             case "/books":
                 page = document.createElement("books-page");
                 break;
+            case "/register":
+                page = document.createElement("register-page");
+                break;
         }
 
         if(page){
             console.log("testy")
             document.querySelector("main").innerHTML = "";
-            document.querySelector("main").appendChild(page);
-            // loadGuiElement(page, document.querySelector("main"));
+            // document.querySelector("main").appendChild(page);
+            loadGuiElement(page, document.querySelector("main"));
 
             window.scrollX = 0;
             window.scrollY = 0;

@@ -4,6 +4,8 @@ import { loadBooks } from "./services/books.js";
 
 
 import { BooksPage } from "./components/BooksPage.js";
+import { IndexPage } from "./components/IndexPage.js";
+import { RegisterPage } from "./components/RegisterPage.js"
 
 
 window.app = {};

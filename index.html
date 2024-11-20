@@ -26,18 +26,21 @@
         <nav>
             <a class="navlink material-symbols-outlined" id="" href="/">home</a>
             <a class="navlink material-symbols-outlined" id="" href="/books">book</a>
-            <a class="navlink material-symbols-outlined" id="" href="/">how_to_reg</a>
+            <a class="navlink material-symbols-outlined" id="" href="/register">how_to_reg</a>
             <a class="navlink material-symbols-outlined" id="" href="/">login</a>
             <span id="badge" hidden></span>
         </nav>
     </header>
 
-    <main>    
-    </main>
+    <main></main>
 
+
+
+
+    <!-- TEMPLATES -->
     <template id="index-template">
         <section>
-            <div id=""></div>
+            <div id="">HELLO</div>
         </section>
     </template>
 
@@ -46,5 +49,26 @@
             <div id="books"></div>
         </section>
     </template>
+
+    <template id="register-template">
+        <section>
+            <h1>Register now!</h1>
+
+            <form id="registrationForm" novalidate>
+                <label>
+                    Username:
+                    <input type="text" name="username" required>
+                </label>
+                <label>
+                    Password:
+                    <input type="password" name="password" required>
+                </label>
+
+                <button type="submit">Register</button>
+            </form>
+            
+        </section>
+    </template>
+
 </body>
 </html>
