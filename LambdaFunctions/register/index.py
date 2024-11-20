@@ -16,7 +16,6 @@ def lambda_handler(event, context):
 
         # unique ID ??
         # user_id = str(uuid.uuid4())
-        
         table.put_item(Item={
             "username": username,
             "password" : password

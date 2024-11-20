@@ -9,6 +9,7 @@ export class RegisterPage extends HTMLElement {
         this.render();
     }
 
+
     render(){
 
         const temp = document.getElementById("register-template");
@@ -44,7 +45,6 @@ export class RegisterPage extends HTMLElement {
                 xx.textContent= "sdf";
                 document.querySelector("main").appendChild(xx)
 
-                setTimeout(()=>{ router.go('/login')}, 2200)
             } catch (error) {
                 alert(`An error occurred: ${error.message}`);
             }
