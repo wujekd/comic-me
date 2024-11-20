@@ -3,3 +3,8 @@ node_modules/
 .aws-sam
 .vscode/settings.json
 data/books.json
+*.json
+LambdaFunctions/login/.DS_Store
+LambdaFunctions/.DS_Store
+LambdaFunctions/login/lambda.zip
+LambdaFunctions/JWTAuth/lambda.zip

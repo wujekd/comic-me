@@ -1,0 +1,146 @@
+:root {
+    --background-surface: #EFEFEF;
+    --primaryColor: #43281C;
+    --secondaryColor: #333D29;
+    --color3: #7F4F24;
+    --color4: #B08968;
+    --color5: #DDB892;
+    --color6: #EDE0D4;
+    --highlight: #FBF2C6;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+body>header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+}
+
+body>main {
+    margin: auto;
+    margin-top: 60px;
+    max-width: 500px;
+}
+
+h1 {
+    background-color: var(--primaryColor);
+    color: white;
+    margin: 0;
+    text-align: center;
+    padding: 10px 0 5px 0;
+    font-size: 20px;
+    font-weight: normal;
+}
+
+ul {
+    display: none;
+    padding: 0;
+}
+
+/* General Reset */
+body, h1, nav, a {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header Styling */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--primaryColor);
+    color: #fff;
+    padding: 10px 20px;
+    font-family: Arial, sans-serif;
+    border-bottom: 2px solid var(--color4);
+}
+
+/* Logo Styling */
+header h1 {
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+/* header h1 img {
+    width: 140px;
+} */
+
+/* Navigation Styling */
+nav {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    padding-right: 25px;
+}
+
+.navlink {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.navlink:hover {
+    background-color: var(--color3);
+    color: var(--color5)
+}
+
+/* Badge Styling */
+#badge {
+    background-color: var(--color5);
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    header {
+        flex-wrap: wrap;
+    }
+
+    nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .navlink {
+        font-size: 16px;
+        padding: 8px;
+    }
+}
+
+
+
+section.page {
+    display: none;
+}
+
+#badge {
+    padding: 4px;
+    background-color: var(--secondaryColor);
+    border-radius: 15px;
+    width: 10px;
+    text-align: center;
+    font-size: x-small;
+    color: white;
+    position: absolute;
+    right: 5px;
+    top: 6px;
+}
