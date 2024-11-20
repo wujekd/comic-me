@@ -1,3 +1,5 @@
 node_modules/
 .env
 .aws-sam
+.vscode/settings.json
+data/books.json
