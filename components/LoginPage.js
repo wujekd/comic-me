@@ -7,6 +7,7 @@ export class LoginPage extends HTMLElement {
 
         const temp = document.getElementById("login-template");
         const elem = temp.content.cloneNode(true);
+        console.log("connected callback called. elem: ", elem );
         this.appendChild(elem);
 
         const form = this.querySelector('form');

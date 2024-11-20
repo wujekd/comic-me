@@ -43,16 +43,16 @@ const router = {
             case "/login":
                 page = document.createElement("login-page");
                 break;
-            case "/add-book":
-                page = document.createElement("login-page");
-                break;
-            case "/your-books":
-                page = document.createElement("login-page");
-                break;
+            // case "/add-book":
+            //     page = document.createElement("login-page");
+            //     break;
+            // case "/your-books":
+            //     page = document.createElement("login-page");
+            //     break;
         }
 
         if(page){
-            console.log("testy")
+            console.log("testy: " , page)
             document.querySelector("main").innerHTML = "";
             // document.querySelector("main").appendChild(page);
             loadGuiElement(page, document.querySelector("main"));
