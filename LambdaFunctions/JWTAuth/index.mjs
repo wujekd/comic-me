@@ -1,10 +1,7 @@
-import jwt from 'jsonwebtoken';
-
-const secretKey = 'my-super-secret-key';
+import { isTokenValid } from "./tokenValidator";
 
 export const handler = async (event) => {
     try {
-       
         const token = event.headers?.Authorization?.replace("Bearer ", "");
 
         const response = {
@@ -20,14 +17,13 @@ export const handler = async (event) => {
                 body: JSON.stringify(response),
             };
         }
-
-        try {
-            const decoded = jwt.verify(token, secretKey);
+        const decoded = isTokenValid(token)
+        if (decoded) {
             response.isValid = true;
             response.message = "Token is valid";
             response.decodedToken = decoded;
-        } catch (error) {
-            response.message = `Token verification failed: ${error.message}`;
+        } else {
+            response.message = "Token verification failed";
         }
 
         return {
@@ -35,10 +31,9 @@ export const handler = async (event) => {
             body: JSON.stringify(response),
         };
     } catch (error) {
-
         return {
             statusCode: 500,
             body: JSON.stringify({ error: "Internal server error", details: error.message }),
-        }
+        };
     }
-}
+};
