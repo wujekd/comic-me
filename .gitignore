@@ -8,3 +8,6 @@ LambdaFunctions/login/.DS_Store
 LambdaFunctions/.DS_Store
 LambdaFunctions/login/lambda.zip
 LambdaFunctions/JWTAuth/lambda.zip
+lambdablueprint.mjs
+LambdaFunctions/getAuthors/lambda.zip
+LambdaFunctions/contents/lambda.zip
