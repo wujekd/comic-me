@@ -1,8 +1,9 @@
-import { ddbClient } from "./ddbClient.mjs";import { DynamoDBClient, DeleteItemCommand, GetItemCommand, PutItemCommand, ScanCommand } from "@aws-sdk/client-dynamodb";
+import { ddbClient } from "./ddbClient.mjs";
+import { DynamoDBClient, DeleteItemCommand, GetItemCommand, PutItemCommand, ScanCommand, BatchGetItemCommand, QueryCommand } from "@aws-sdk/client-dynamodb";
 import { marshall } from "@aws-sdk/util-dynamodb";
+import { checkToken } from "./checkToken.mjs";
 
 const REGION = "us-east-1";
-
 
 export const handler = async (event, context) => {
   let body;
@@ -11,28 +12,62 @@ export const handler = async (event, context) => {
     "Content-Type": "application/json"
   };
 
+  const token = event.headers?.Authorization?.replace("Bearer ", "");
+  let decoded = null;
+  if (token) {
+    decoded = checkToken(token);
+  }
+
   try {
     switch (event.httpMethod) {
-
       case "GET":
-        const tempSubList = ['admin', 'testuser'];
         if (event.pathParameters != null) {
-        //   const getParams = {
-        //     TableName: "comics",
-        //     Key: {
-        //       id: { S: event.pathParameters.id }
-        //     }
-        //   };
-        //   body = await ddbClient.send(new GetItemCommand(getParams));
-        console.log("item view");
+          if (decoded) {
+            //handle item view
+          } else {
+            //
+          }
         } else {
+          if (decoded) {
+            const params = {
+              TableName: "users",
+              Key: {
+                username: { S: decoded.username }
+              },
+              ProjectionExpression: "subbed",
+            };
 
-        //   const scanParams = {
-        //     TableName: "comics"
-        //   };
-        //   body = await ddbClient.send(new ScanCommand(scanParams));
+            const subbedResponse = await ddbClient.send(new GetItemCommand(params));
+            let subbedList = [];
+            if (subbedResponse.Item && subbedResponse.Item.subbed) {
+              // Extract the list correctly
+              subbedList = subbedResponse.Item.subbed.L.map(item => item.S);
+              console.log(subbedList);
+            } else {
+              body = { response: "No subscriptions" };
+              break;
+            }
 
-        // filter posts from subbed users
+            const getItemsForPartitionKey = async (userName) => {
+              const params = {
+                TableName: "order",
+                KeyConditionExpression: "userName = :u",
+                ExpressionAttributeValues: {
+                  ":u": { S: userName },
+                },
+                ProjectionExpression: "tags, id, userName"
+              };
+              return ddbClient.send(new QueryCommand(params));
+            };
+
+            const promises = subbedList.map(userName => getItemsForPartitionKey(userName));
+            const results = await Promise.all(promises);
+
+            body = results.flatMap(result => result.Items);
+          } else {
+            statusCode = 500;
+            body = { response: "login to see stories" };
+          }
         }
         break;
       case "POST":
@@ -67,3 +102,5 @@ export const handler = async (event, context) => {
     headers
   };
 };
+
+// aws lambda update-function-code --function-name contents --zip-file fileb://lambda.zip > /dev/null
