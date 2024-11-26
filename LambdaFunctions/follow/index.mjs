@@ -3,7 +3,7 @@ import { GetItemCommand, UpdateItemCommand } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 import { checkToken } from "./checkToken.mjs";
 
-const run = async (event, context) => {
+export const handler = async (event, context) => {
     let status = 200;
     const headers = {
         "Content-Type": "application/json"
@@ -30,34 +30,66 @@ const run = async (event, context) => {
         try {
             // Fetch the user's current subscriptions
             const getResponse = await ddbClient.send(new GetItemCommand(getParams));
-            const subbedList = getResponse.Item ? unmarshall(getResponse.Item).subbed || [] : [];
+            let subbedList = getResponse.Item ? unmarshall(getResponse.Item).subbed || [] : [];
 
             let requestJSON = JSON.parse(event.body);
-            const newSub = requestJSON.subTo;
-            // Check if the new subscription already exists
-            if (subbedList.includes(newSub)) {
-                console.log("User is already subscribed.");
-                return 
-            }
 
-            // Add the new subscription
-            subbedList.push(newSub);
+            switch (event.httpMethod) {
+            case "POST":
+                const newSub = requestJSON.subTo;
+                // Check if the new subscription already exists
+                if (subbedList.includes(newSub)) {
+                    console.log("User is already subscribed.");
+                    return 
+                }
 
-            // Prepare the update parameters
-            const updateParams = {
-                TableName: "users",
-                Key: {
-                    username: { S: username }
-                },
-                UpdateExpression: "SET subbed = :newval",
-                ExpressionAttributeValues: {
-                    ":newval": marshall({ subbed: subbedList }).subbed
-                },
-                ReturnValues: "ALL_NEW"
-            };
+                // Add the new subscription
+                subbedList.push(newSub);
 
-            // Update the database
-            const data = await ddbClient.send(new UpdateItemCommand(updateParams));
+                // Prepare the update parameters
+                const updateParams = {
+                    TableName: "users",
+                    Key: {
+                        username: { S: decoded.username }
+                    },
+                    UpdateExpression: "SET subbed = :newval",
+                    ExpressionAttributeValues: {
+                        ":newval": marshall({ subbed: subbedList }).subbed
+                    },
+                    ReturnValues: "ALL_NEW"
+                };
+
+                // Update the database
+                const dataPost = await ddbClient.send(new UpdateItemCommand(updateParams));
+                break;
+
+            case "DELETE":
+                const unsubFrom = requestJSON.unsubFrom;
+                if (subbedList.includes(unsubFrom)) {
+                    subbedList = subbedList.filter(sub => sub !== unsubFrom);
+                } else {
+                    console.log("youre not bubbed to this user!")
+                    break;
+                }
+
+                // Prepare the update parameters
+                const deleteParams = {
+                    TableName: "users",
+                    Key: {
+                        username: { S: decoded.username }
+                    },
+                    UpdateExpression: "SET subbed = :newval",
+                    ExpressionAttributeValues: {
+                        ":newval": marshall({ subbed: subbedList }).subbed
+                    },
+                    ReturnValues: "ALL_NEW"
+                };
+
+                // Update the database
+                const dataDel = await ddbClient.send(new UpdateItemCommand(deleteParams));
+                break;
+        }
+        
             // console.log("Updated user subscriptions:", unmarshall(data.Attributes));
             body = { response: "success"}
         } catch (e) {
@@ -68,8 +100,8 @@ const run = async (event, context) => {
         body =  { response: "invalid token" }
     }
     return {
-        status,
+        statusCode: status,
         headers,
-        body
-    }
+        body: JSON.stringify(body)
+    };
 };
