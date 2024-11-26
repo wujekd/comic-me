@@ -1,59 +1,75 @@
 import { ddbClient } from "./ddbClient.mjs";
-import { GetItemCommand, UpdateItemCommand} from "@aws-sdk/client-dynamodb";
+import { GetItemCommand, UpdateItemCommand } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
+import { checkToken } from "./checkToken.mjs";
 
-
-
-
-
-const run = async (username, newSub)=>{
-    let status = 200
-    let headers = ''
+const run = async (event, context) => {
+    let status = 200;
+    const headers = {
+        "Content-Type": "application/json"
+      };
     let body;
 
-    const getParams = {
-        TableName: "users",
-        Key: {
-            username: { S : username }
-        },
-        ProjectionExpression: "subbed"
+    
+    const token = event.headers?.Authorization?.replace("Bearer ", "");
+    let decoded = null;
+    if (token) {
+        decoded = checkToken(token);
     }
-    try {
-        const getResponse = await ddbClient.send(new GetItemCommand(getParams))
-        const subbedList = unmarshall(getResponse.Item).subbed
 
-        if (!subbedList.includes(newSub)) {
-            subbedList.push(newSub);
-        } else {
-            console.log("User is already subscribed.");
-            return;
-        }
-        console.log(subbedList)
-        const updateParams = {
+    if (decoded){
+
+        const getParams = {
             TableName: "users",
             Key: {
-                username: { S: username }
+                username: { S: decoded.username }
             },
-            UpdateExpression: "SET subbed = :newval",
-            ExpressionAttributeValues: {
-                ":newval" : marshall({ subbed: subbedList}).subbed
-            },
-            ReturnValues: "ALL_NEW"
+            ProjectionExpression: "subbed"
         };
+        
+        try {
+            // Fetch the user's current subscriptions
+            const getResponse = await ddbClient.send(new GetItemCommand(getParams));
+            const subbedList = getResponse.Item ? unmarshall(getResponse.Item).subbed || [] : [];
 
-        const data = await ddbClient.send(new UpdateItemCommand(updateParams))
-        console.log(data)
+            let requestJSON = JSON.parse(event.body);
+            const newSub = requestJSON.subTo;
+            // Check if the new subscription already exists
+            if (subbedList.includes(newSub)) {
+                console.log("User is already subscribed.");
+                return 
+            }
 
+            // Add the new subscription
+            subbedList.push(newSub);
 
-    } catch (e) {
-        console.log(e)
+            // Prepare the update parameters
+            const updateParams = {
+                TableName: "users",
+                Key: {
+                    username: { S: username }
+                },
+                UpdateExpression: "SET subbed = :newval",
+                ExpressionAttributeValues: {
+                    ":newval": marshall({ subbed: subbedList }).subbed
+                },
+                ReturnValues: "ALL_NEW"
+            };
+
+            // Update the database
+            const data = await ddbClient.send(new UpdateItemCommand(updateParams));
+            // console.log("Updated user subscriptions:", unmarshall(data.Attributes));
+            body = { response: "success"}
+        } catch (e) {
+            console.log(e);
+        }
+    } else {
+        status = 400;
+        body =  { response: "invalid token" }
+    }
+    return {
+        status,
+        headers,
+        body
     }
 };
-
-
-
-run("Brian", "Harold");
-
-// const xx = ['asd', 'asdf', 'gdf', 'reg']
-
-// console.log(marshall({ subbed: xx}).subbed)
