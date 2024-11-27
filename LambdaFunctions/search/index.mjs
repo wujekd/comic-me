@@ -4,7 +4,7 @@ import { byTags } from "./byTags.mjs";
 import { checkToken } from "./checkToken.mjs";
 
 export const handler = async (event, context) => {
-    let statusCode = 200; // Corrected the name to `statusCode`
+    let statusCode = 200;
     const headers = {
         "Content-Type": "application/json"
     };
@@ -18,23 +18,28 @@ export const handler = async (event, context) => {
     }
 
     if (decoded) {
-        const tags = ['thriller', 'anime'];
+
+        // const tags = ['thriller', 'anime'];
+        const tags =    event.queryStringParameters?.tags
+                        ? event.queryStringParameters.tags.split(",")
+                        : [];
+
 
         try {
             data = await byTags(tags);
-            body = { response: data }; // Use `data` here, not `body`
+            body = { response: data };
         } catch (e) {
             body = { status: "error" };
-            statusCode = 400; // Corrected the name to `statusCode`
+            statusCode = 400;
         }
     } else {
-        statusCode = 401; // Use status code 401 for unauthorized access
+        statusCode = 401; 
         body = { status: "invalid token" };
     }
 
     return {
-        statusCode, // Corrected key name
+        statusCode, 
         headers,
-        body: JSON.stringify(body) // Convert body to a JSON string
+        body: JSON.stringify(body)
     };
 };
