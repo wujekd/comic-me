@@ -7,6 +7,7 @@
     --color5: #DDB892;
     --color6: #EDE0D4;
     --highlight: #FBF2C6;
+    --btnhover: #534f3b;
 }
 
 body {
@@ -127,10 +128,10 @@ nav {
 }
 
 
-
 section.page {
     display: none;
 }
+
 
 #badge {
     padding: 4px;
@@ -147,10 +148,9 @@ section.page {
 
 
 
-
 /* INDEX PAGE */
 #index {
-    background-color: var(--primaryColor);
+    /* background-color: var(--primaryColor); */
     color: white;
     padding: 15px;
     position: relative;
@@ -172,4 +172,85 @@ section.page {
     text-align: center;
     background-color: #69513d;
     margin: 0.3rem;
+}
+
+#index {
+    background-color: var(--primaryColor);
+}
+
+
+/* LOGIN PAGE  */
+
+
+
+/* Style for the login section */
+#login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    height: 24rem;
+}
+
+/* Style for the heading */
+#login h1 {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #eeeeee;
+    margin-bottom: 20px;
+}
+
+/* Style for the form */
+#login-form {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Style for labels */
+#login-form label {
+    font-size: 0.9rem;
+    color: #555;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Style for input fields */
+#login-form input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #282727;
+    border-radius: 5px;
+    margin-top: 5px;
+    transition: border-color 0.3s;
+}
+
+#login-form input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Style for the submit button */
+#login-form button {
+    padding: 10px 15px;
+    font-size: 1rem;
+    color: #ffffff;
+    background-color: var(--color4);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#login-form button:hover {
+    background-color: var(--btnhover);
 }

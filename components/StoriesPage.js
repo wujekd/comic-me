@@ -1,4 +1,4 @@
-export class BooksPage extends HTMLElement {
+export class StoriesPage extends HTMLElement {
 
     constructor() {
         super();
@@ -7,7 +7,7 @@ export class BooksPage extends HTMLElement {
         this.root.appendChild(styles);
 
         async function loadCSS() {
-            const request = await fetch('../css/BooksPage.css');
+            const request = await fetch('../css/StoriesPage.css');
             const css = await request.text();
             styles.textContent = css;
         }
@@ -20,33 +20,32 @@ export class BooksPage extends HTMLElement {
         const node = temp.content.cloneNode(true);
         this.root.appendChild(node);
         this.render();
-
         
 
-        window.addEventListener("booksloaded", ()=> {
+        window.addEventListener("storiesloaded", ()=> {
             this.render();
         });
     }
 
 
     render(){
-        if (app.data.books) {
+        if (app.data.stories) {
             this.root.querySelector("#books").innerHTML = "";
-            console.log(app.data.books)
-            for (let book of app.data.books['books']){
-                const bookItem = document.createElement("div");
-                bookItem.innerHTML = `
-                    <h2>${book.name}</h2>
-                    <p>${book.description}</p>
+            
+            for (let story of app.data.stories['books']){
+                const storyItem = document.createElement("div");
+                storyItem.innerHTML = `
+                    <h2>${story.name}</h2>
+                    <p>${story.description}</p>
                     
                 `;
                 // <img src="${book.img_url}" />
-                this.root.querySelector("#books").appendChild(bookItem)
+                this.root.querySelector("#books").appendChild(storyItem)
             }
         } else {
-            this.root.querySelector("#books").innerHTML = "Loading Books..."
+            this.root.querySelector("#books").innerHTML = "Loading Stories..."
         }
     }
 }
 
-customElements.define("books-page", BooksPage);
+customElements.define("stories-page", StoriesPage);

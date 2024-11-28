@@ -1,9 +1,9 @@
 import Data from "./services/data.js";
 import Router from "./services/router.js";
-import { loadBooks } from "./services/books.js";
+import { loadStories } from "./services/books.js";
 
 
-import { BooksPage } from "./components/BooksPage.js";
+import { StoriesPage } from "./components/StoriesPage.js";
 import { IndexPage } from "./components/IndexPage.js";
 import { RegisterPage } from "./components/RegisterPage.js"
 import { LoginPage } from "./components/LoginPage.js"
@@ -15,8 +15,8 @@ app.router = Router;
 
 window.addEventListener("DOMContentLoaded", ()=> {
 
-    loadBooks();
+    loadStories();
     app.router.init();
-    setTimeout( () => console.log(app.data.books), 600);
+    setTimeout( () => console.log(app.data.stories), 600);
     
 })

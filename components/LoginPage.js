@@ -1,3 +1,5 @@
+import router from "../services/router.js"
+
 export class LoginPage extends HTMLElement {
     constructor(){
         super();
@@ -7,7 +9,7 @@ export class LoginPage extends HTMLElement {
 
         const temp = document.getElementById("login-template");
         const elem = temp.content.cloneNode(true);
-        console.log("connected callback called. elem: ", elem );
+        
         this.appendChild(elem);
 
         const form = this.querySelector('form');
@@ -22,6 +24,7 @@ export class LoginPage extends HTMLElement {
             console.log(json)
 
             try {
+                document.getElementById("login").innerHTML = "Logging in...";
                 const response = await fetch("https://eq4pguzwid.execute-api.us-east-1.amazonaws.com/v1/login", {
                     method: "POST",
                     body: json,
@@ -30,22 +33,33 @@ export class LoginPage extends HTMLElement {
                     }
                 });
                 if (!response.ok) {
-                    throw new Error(`Error: ${response.status} ${response.statusText}`);
+                    document.getElementById("login").innerHTML = `
+                    <h2>Wrong credentials!</h2>
+                    `;
+                    setTimeout(()=> { router.go("/login")}, 3000)
+                } else {
+                
+                    const result = await response.json();
+                    console.log(response)
+                    console.log(result)
+                    console.log(result.token)
+
+                    sessionStorage.setItem("jwt", result.token);
+
+
+                    document.getElementById("login").innerHTML = `
+                        <h2>Success! You will be redirected to the home page...</h2>
+                        `;
+                    setTimeout(()=> { router.go("/")}, 2200);
                 }
-console.log(response)
-                const result = await response.json();
-                console.log(response)
-                console.log(result)
-                const xx = document.createElement("h1")
-                xx.textContent= "sdf";
-                document.querySelector("main").appendChild(xx)
+
             } catch (error) {
 
-                        console.log(error);
+                    console.log("catch err: ", error);
 
-                    }
-                });
-            }
+                }
+            });
+        }
 }
     
 
