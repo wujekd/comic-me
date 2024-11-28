@@ -1,5 +1,6 @@
 import loadGuiElement from "../utilities/loadGuiElement.js";
 
+
 const router = {
     init: ()=> {
         
@@ -12,6 +13,7 @@ const router = {
             });
         })
 
+        // dont replicate history entries when recalled (save = false)
         window.addEventListener("popstate", (e) => {
             router.go(e.state.route, false)
         })
@@ -34,8 +36,8 @@ const router = {
                 page = document.createElement("index-page");
                 console.log(route, ":::", page)
                 break;
-            case "/books":
-                page = document.createElement("books-page");
+            case "/stories":
+                page = document.createElement("stories-page");
                 break;
             case "/register":
                 page = document.createElement("register-page");
@@ -43,12 +45,10 @@ const router = {
             case "/login":
                 page = document.createElement("login-page");
                 break;
-            // case "/add-book":
-            //     page = document.createElement("login-page");
-            //     break;
-            // case "/your-books":
-            //     page = document.createElement("login-page");
-            //     break;
+            case "/":
+                page = document.createElement("login-page");
+                break;
+
         }
 
         if(page){
