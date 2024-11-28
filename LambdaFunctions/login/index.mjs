@@ -43,7 +43,7 @@ export const handler = async (event) => {
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*',
                 },
-                body: JSON.stringify({ error: 'Invalid username or password' }),
+                body: JSON.stringify({ error: 'Invalid username' }),
             };
         }
 
@@ -56,15 +56,14 @@ export const handler = async (event) => {
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*',
                 },
-                body: JSON.stringify({ error: 'Invalid username or password' }),
+                body: JSON.stringify({ error: 'Invalid password' }),
             };
         }
+
 
         // Generate the JWT
         const payload = { username, role: result.Item.role || 'user' }; // Include additional user info if needed
         const token = jwt.sign(payload, secretKey, { expiresIn: '1h' });
-
-        console.log("User authenticated successfully");
 
         return {
             statusCode: 200,
@@ -72,7 +71,12 @@ export const handler = async (event) => {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
             },
-            body: JSON.stringify({ logged: "true", token }),
+            body: JSON.stringify({ logged: "true",
+            token,
+            username: username,
+            subbed: result.Item.subbed
+        
+        }),
         };
 
     } catch (error) {

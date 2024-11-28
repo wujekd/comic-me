@@ -1,4 +1,5 @@
-import router from "../services/router.js"
+import router from "../services/router.js";
+import { loadStories } from "../services/stories.js";
 
 export class LoginPage extends HTMLElement {
     constructor(){
@@ -40,17 +41,17 @@ export class LoginPage extends HTMLElement {
                 } else {
                 
                     const result = await response.json();
-                    console.log(response)
-                    console.log(result)
-                    console.log(result.token)
 
                     sessionStorage.setItem("jwt", result.token);
+                    app.data.logged = result.username;
+                    app.data.subscriptions = result.subbed;
 
+                    loadStories();
 
                     document.getElementById("login").innerHTML = `
-                        <h2>Success! You will be redirected to the home page...</h2>
+                        <h2>Hello ${ result.username }!</h2>
                         `;
-                    setTimeout(()=> { router.go("/")}, 2200);
+                    setTimeout(()=> { router.go("/stories")}, 1200);
                 }
 
             } catch (error) {
