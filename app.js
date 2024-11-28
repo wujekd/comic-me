@@ -1,6 +1,6 @@
 import Data from "./services/data.js";
 import Router from "./services/router.js";
-import { loadStories } from "./services/books.js";
+import { loadStories } from "./services/stories.js";
 
 
 import { StoriesPage } from "./components/StoriesPage.js";
@@ -15,8 +15,19 @@ app.router = Router;
 
 window.addEventListener("DOMContentLoaded", ()=> {
 
-    loadStories();
+    // loadStories();
     app.router.init();
-    setTimeout( () => console.log(app.data.stories), 600);
+
+
+    window.addEventListener("storiesloaded", ()=> {
+        document.getElementById("storycount").textContent = app.data.stories.length;
+    })
+
+    window.addEventListener("subs", ()=> {
+        document.getElementById("subcount").textContent = app.data.subscriptions.length;
+    })
+    
+
+
     
 })

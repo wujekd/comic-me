@@ -23,9 +23,14 @@
             <!-- <img src="images/logo.svg" alt="Comic Me"> -->
         Comic Me
         </h1>
+        <div class="user-stats">
+            <span>You have:</span>
+            <span id="storycount" class="stat">0</span> stories from
+            <span id="subcount" class="stat">0</span> authors.
+        </div>
         <nav>
             <a class="navlink material-symbols-outlined" id="" href="/">home</a>
-            <a class="navlink material-symbols-outlined" id="" href="/books">book</a>
+            <a class="navlink material-symbols-outlined" id="" href="/stories">book</a>
             <a class="navlink material-symbols-outlined" id="" href="/register">how_to_reg</a>
             <a class="navlink material-symbols-outlined" id="" href="/login">login</a>
             <span id="badge" hidden></span>
@@ -33,7 +38,6 @@
     </header>
 
     <main></main>
-
 
 
 
@@ -73,10 +77,10 @@
         </section>
     </template>
     <template id="login-template">
-        <section>
+        <section id="login">
             <h1>Login now!</h1>
 
-            <form id="login-template" novalidate>
+            <form id="login-form" novalidate>
                 <label>
                     Username:
                     <input type="text" name="username" required>
