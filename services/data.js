@@ -18,7 +18,13 @@ const proxiedData = new Proxy(Data, {
         }
 
         if (property == "subscriptions"){
+            console.log("subs event dispatched")
             window.dispatchEvent(new Event('subs'));
+        }
+
+        if (property == "logged"){
+            console.log("logged event triggered")
+            window.dispatchEvent(new Event("logged"))
         }
         return true;
     }
