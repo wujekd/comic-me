@@ -9,6 +9,7 @@ export class IndexPage extends HTMLElement {
         if(app.data.logged){
             loadStories();
         }
+        
         const temp = document.getElementById("index-template");
         const elem = temp.content.cloneNode(true);
         this.appendChild(elem);

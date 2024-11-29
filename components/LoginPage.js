@@ -33,6 +33,7 @@ export class LoginPage extends HTMLElement {
                         "Content-Type": 'application/json',
                     }
                 });
+                console.log(response)
                 if (!response.ok) {
                     document.getElementById("login").innerHTML = `
                     <h2>Wrong credentials!</h2>
@@ -43,6 +44,8 @@ export class LoginPage extends HTMLElement {
                     const result = await response.json();
 
                     sessionStorage.setItem("jwt", result.token);
+                    sessionStorage.setItem("name", result.username);
+                    sessionStorage.setItem("subbed", result.subbed);
                     app.data.logged = result.username;
                     app.data.subscriptions = result.subbed;
 

@@ -254,3 +254,8 @@ section.page {
 #login-form button:hover {
     background-color: var(--btnhover);
 }
+
+
+.user-stats {
+    font-size: smaller;
+}

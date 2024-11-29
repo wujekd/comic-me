@@ -1,4 +1,4 @@
-export class AddPage extends HTMLElement {
+export class AddStory extends HTMLElement {
 
     constructor() {
         super();
@@ -15,3 +15,8 @@ export class AddPage extends HTMLElement {
 
     
 }
+
+
+customElements.define("add-story", AddStory);
+
+

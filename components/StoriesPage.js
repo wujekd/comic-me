@@ -6,6 +6,7 @@ export class StoriesPage extends HTMLElement {
         const styles = document.createElement("style");
         this.root.appendChild(styles);
 
+
         async function loadCSS() {
             const request = await fetch('../css/StoriesPage.css');
             const css = await request.text();
@@ -35,6 +36,7 @@ export class StoriesPage extends HTMLElement {
                 
                 for (let story of app.data.stories){
                     const storyItem = document.createElement("div");
+                    console.log(story);
                     storyItem.innerHTML = `
                         <h2>${story.name}</h2>
                         <p>${story.description}</p>
