@@ -9,7 +9,6 @@ export const handler = async (event, context) => {
         "Content-Type": "application/json"
       };
     let body;
-
     
     const token = event.headers?.Authorization?.replace("Bearer ", "");
     let decoded = null;

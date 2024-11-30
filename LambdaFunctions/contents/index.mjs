@@ -3,7 +3,9 @@ import { DynamoDBClient, DeleteItemCommand, GetItemCommand, PutItemCommand, Scan
 import { marshall } from "@aws-sdk/util-dynamodb";
 import { checkToken } from "./checkToken.mjs";
 
+
 const REGION = "us-east-1";
+
 
 export const handler = async (event, context) => {
   let body;
@@ -12,11 +14,13 @@ export const handler = async (event, context) => {
     "Content-Type": "application/json"
   };
 
+
   const token = event.headers?.Authorization?.replace("Bearer ", "");
   let decoded = null;
   if (token) {
     decoded = checkToken(token);
   }
+
 
   try {
     switch (event.httpMethod) {
@@ -46,6 +50,7 @@ export const handler = async (event, context) => {
             } else {
               body = { response: "No subscriptions" };
               break;
+              
             }
 
             const getItemsForPartitionKey = async (userName) => {
@@ -70,6 +75,7 @@ export const handler = async (event, context) => {
           }
         }
         break;
+
       case "POST":
         let requestJSON = JSON.parse(event.body);
         const marshalledTags = marshall({ tags: requestJSON.tags }).tags;
@@ -89,6 +95,7 @@ export const handler = async (event, context) => {
       default:
         throw new Error(`Unsupported route: "${event.httpMethod}"`);
     }
+
   } catch (err) {
     statusCode = 400;
     body = err.message;
@@ -102,5 +109,6 @@ export const handler = async (event, context) => {
     headers
   };
 };
+
 
 // aws lambda update-function-code --function-name contents --zip-file fileb://lambda.zip > /dev/null
