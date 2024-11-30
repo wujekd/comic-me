@@ -1,3 +1,5 @@
+import { TagList } from "./TagList.js";
+
 export class AddStory extends HTMLElement {
 
     constructor() {
@@ -10,11 +12,17 @@ export class AddStory extends HTMLElement {
         const node = temp.content.cloneNode(true);
         this.appendChild(node);
 
+        this.form1 = document.getElementById("postForm");
+        this.form1.addEventListener("submit", (e)=> {
+            e.preventDefault()
+            this.submitStory()
+        })
+
         const fileInput = document.getElementById("fileInput");
         fileInput.addEventListener("change", (e) => {
-            const file = e.target.files[0]; // Get the selected file
+            const file = e.target.files[0];
             if (file) {
-                // Display it
+                
                 const reader = new FileReader();
                 reader.onload = (event) => {
                     imagePlaceholder.textContent = ""; // Clear placeholder text
@@ -32,10 +40,22 @@ export class AddStory extends HTMLElement {
         });
     }
 
+    submitStory(){
+        // rewrite with reactive data?
+        
+        const formData = {
+            name : this.form1.querySelector("#postName").value,
+            desc : this.form1.querySelector("#desc").value,
+            tags : TagList.tags
+        }
+
+        console.log(formData);
+    }
+
+
+
     
 }
 
 
 customElements.define("add-page", AddStory);
-
-

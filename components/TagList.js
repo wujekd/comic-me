@@ -1,10 +1,10 @@
 export class TagList extends HTMLElement {
+
+    static tags = [];
+    
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
-        this.tags = []; // Internal list of tags
-
-        
         this.shadowRoot.innerHTML = `
             <style>
                 .tags-container {
@@ -71,8 +71,8 @@ export class TagList extends HTMLElement {
         // Add tag on button click
         addTagBtn.addEventListener("click", () => {
             const newTag = tagInput.value.trim();
-            if (newTag && !this.tags.includes(newTag)) {
-                this.tags.push(newTag);
+            if (newTag && !TagList.tags.includes(newTag)) {
+                TagList.tags.push(newTag);
                 this.renderTags();
             }
             tagInput.value = ""; 
@@ -80,7 +80,7 @@ export class TagList extends HTMLElement {
 
         this.renderTags = () => {
             tagsContainer.innerHTML = ""; 
-            this.tags.forEach((tag) => {
+            TagList.tags.forEach((tag) => {
                 const tagElement = document.createElement("span");
                 tagElement.classList.add("tag");
                 tagElement.innerHTML = `
@@ -91,15 +91,11 @@ export class TagList extends HTMLElement {
 
                 tagElement.querySelector("button").addEventListener("click", (e) => {
                     const tagToRemove = e.target.getAttribute("data-tag");
-                    this.tags = this.tags.filter((t) => t !== tagToRemove);
+                    TagList.tags = TagList.tags.filter((t) => t !== tagToRemove);
                     this.renderTags();
                 });
             });
         };
-    }
-
-    getTags() {
-        return this.tags;
     }
 }
 
