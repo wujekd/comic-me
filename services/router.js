@@ -1,4 +1,5 @@
 import loadGuiElement from "../utilities/loadGuiElement.js";
+import { handleLogout } from "./data.js";
 
 
 const router = {
@@ -34,7 +35,6 @@ const router = {
         switch (route) {
             case "/":
                 page = document.createElement("index-page");
-                console.log(route, ":::", page)
                 break;
             case "/stories":
                 page = document.createElement("stories-page");
@@ -45,14 +45,17 @@ const router = {
             case "/login":
                 page = document.createElement("login-page");
                 break;
-            case "/":
-                page = document.createElement("login-page");
+                case "/add-story":
+                page = document.createElement("add-page");
                 break;
+            case "/logout":
+                handleLogout();
+                return;
+            
 
         }
 
         if(page){
-            console.log("testy: " , page)
             document.querySelector("main").innerHTML = "";
             // document.querySelector("main").appendChild(page);
             loadGuiElement(page, document.querySelector("main"));

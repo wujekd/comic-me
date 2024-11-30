@@ -1,11 +1,11 @@
 import APIs from "./APIs.js";
 
 export async function loadStories() {
-    // Show "loading..." for a specified delay
+    
     console.log("Fetching stories, please wait...");
 
-    // Artificial delay (e.g., 2 seconds)
-    await new Promise(resolve => setTimeout(resolve, 2500));
+
+    await new Promise(resolve => setTimeout(resolve, 900));
 
     // Fetch the actual stories
     app.data.stories = await APIs.fetchStories();

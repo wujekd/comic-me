@@ -32,6 +32,8 @@
             <a class="navlink material-symbols-outlined" id="" href="/login">login</a>
             <span id="badge" hidden></span>
             <a class="navlink" id="" href="/add-story">Add Story</a>
+
+            <a class="navlink" id="" href="/logout">logout</a>
         </nav>
     </header>
 
@@ -93,9 +95,36 @@
         </section>
     </template>
     <template id="add-template">
-        <section>
-            <p>testy</p>
+        <section id="add-story">
+            <div class="image-upload">
+                <label for="fileInput" id="imagePlaceholder" class="image-placeholder">
+                    <span>Select a file</span>
+                </label>
+                <input type="file" id="fileInput" style="display: none;" accept="image/*">
+                <div class="image-controls">
+                    <button type="button" id="clearFileBtn">Clear</button>
+                </div>
+            </div>
+    
+            <form id="postForm">
+                <div>
+                    <label for="postName">Post Name:</label>
+                    <input type="text" id="postName" name="postName" required>
+                </div>
+                <div>
+                    <label for="tags">Tags:</label>
+                    <tag-list id="tagManager"></tag-list>
+                </div>
+                <div>
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description"></textarea>
+                </div>
+                <button type="submit" id="submitPostBtn">Submit</button>
+            </form>
         </section>
     </template>
+    
+    
+    
 </body>
 </html>
