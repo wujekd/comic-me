@@ -25,7 +25,7 @@ export class AddStory extends HTMLElement {
                 
                 const reader = new FileReader();
                 reader.onload = (event) => {
-                    imagePlaceholder.textContent = ""; // Clear placeholder text
+                    imagePlaceholder.textContent = "";
                     const img = document.createElement("img");
                     img.src = event.target.result;
                     img.alt = "Selected Picture";
@@ -40,18 +40,71 @@ export class AddStory extends HTMLElement {
         });
     }
 
-    submitStory(){
-        // rewrite with reactive data?
-        
-        const formData = {
-            name : this.form1.querySelector("#postName").value,
-            desc : this.form1.querySelector("#desc").value,
-            tags : TagList.tags
+    async submitStory() {
+        const postData = {
+            name: this.form1.querySelector("#postName").value,
+            desc: this.form1.querySelector("#desc").value,
+            tags: TagList.tags,
+        };
+    
+        try {
+            
+            const response = await fetch("https://eq4pguzwid.execute-api.us-east-1.amazonaws.com/prod/contents", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${sessionStorage.getItem("jwt")}`, 
+                },
+                body: JSON.stringify(postData),
+            });
+    
+            if (!response.ok) {
+                throw new Error(response.statusText);
+            }
+    
+            const result = await response.json();
+            console.log("Story added:", result);
+    
+            
+            if (result.upload_url) {
+                const fileInput = document.getElementById("fileInput");
+                const imageFile = fileInput.files[0];
+    
+                if (imageFile) {
+                    await this.uploadImage(result.upload_url, imageFile);
+                    alert("Image uploaded successfully!");
+                } else {
+                    alert("No image selected to upload.");
+                }
+            } else {
+                console.error("No pre-signed URL returned.");
+            }
+        } catch (e) {
+            console.error("Failed to submit story:", e);
         }
-
-        console.log(formData);
     }
-
+    
+    async uploadImage(preSignedUrl, imageFile) {
+        try {
+            const response = await fetch(preSignedUrl, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": imageFile.type,
+                },
+                body: imageFile,
+            });
+    
+            if (!response.ok) {
+                throw new Error("Failed to upload the image.");
+            }
+    
+            console.log("Image uploaded successfully.");
+        } catch (error) {
+            console.error("Error during image upload:", error);
+            alert("An error occurred while uploading the image.");
+        }
+    }
+    
 
 
     
