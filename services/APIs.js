@@ -2,6 +2,7 @@ const APIs = {
 
     url: "https://eq4pguzwid.execute-api.us-east-1.amazonaws.com/prod/contents",
     searchUrl: "https://eq4pguzwid.execute-api.us-east-1.amazonaws.com/prod/contents/search",
+    getAuthorsUrl: "https://eq4pguzwid.execute-api.us-east-1.amazonaws.com/prod/get-authors",
 
     fetchStories: async () => {
         const token = sessionStorage.getItem("jwt"); 

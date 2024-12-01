@@ -4,7 +4,6 @@ const REGION = "us-east-1"
 const param = {region: REGION};
 const ddbClient = new DynamoDBClient(param);
 // export {ddbClient};
-
 // const dynamoDb = new AWS.DynamoDB.DocumentClient();
 const tableName = 'comics'; // Replace with your table name
 

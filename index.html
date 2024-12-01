@@ -13,6 +13,8 @@
 </head>
 <body>
     <script src="app.js" defer type="module"></script>
+
+<!-- TOP MENU BAR -->
     <header>
         <h1><!-- <img src="images/logo.svg" alt="Comic Me"> -->Comic Me</h1>
         <div class="user-stats">
@@ -36,11 +38,8 @@
 <!-- TEMPLATES -->
     <template id="index-template">
         <section id="index">
-            <h2>Authors</h2>
-            <div id="authors-list">
-                <div id="author"><div>test</div></div></div>
-                <div id="author">test</div>
-            </div>
+            <authors-list></authors-list>
+            <!-- <action-call></action-call> -->
         </section>
     </template>
     <template id="books-template">
@@ -129,6 +128,5 @@
             </div>
         </section>
     </template>
-    
 </body>
 </html>

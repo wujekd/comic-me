@@ -10,6 +10,7 @@ import { RegisterPage } from "./components/RegisterPage.js"
 import { LoginPage } from "./components/LoginPage.js"
 import { AddStory } from "./components/AddStory.js"
 import { TagList } from "./components/TagList.js"
+import { AuthorsList } from "./components/AuthorsList.js";
 
 
 
