@@ -397,3 +397,61 @@ section.page {
     font-size: 0.9em;
     color: var(--color6);
 }
+
+
+
+
+
+/* AUTHORS LIST  */
+
+#authors-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    padding: 10px;
+}
+
+.author-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 130px;
+    height: 106px;
+}
+
+.author-info {
+    text-align: center;
+}
+
+.author-name {
+    margin: 0;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.post-count {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.follow-button {
+    padding: 10px 15px;
+    font-size: 1em;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.follow-button:hover {
+    background-color: #0056b3;
+}

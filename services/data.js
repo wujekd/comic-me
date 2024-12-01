@@ -1,6 +1,7 @@
 import topMenu from "../components/topMenu.js";
 import router from "./router.js";
 import { loadStories } from "./stories.js";
+import { AuthorsList } from "../components/AuthorsList.js";
 
 const Data = {
     stories: null,
@@ -71,6 +72,10 @@ export const handleLogout = ()=> {
     topMenu.render() // once logged is null render to remove event listeners to subscription and stories data change 
     app.data.subscriptions = null;
     app.data.stories = null;
+
+    AuthorsList.authors = null
+
+
 
 
     router.go("/")

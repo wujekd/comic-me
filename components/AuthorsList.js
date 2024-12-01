@@ -1,4 +1,5 @@
 import APIs from "../services/APIs.js";
+import loadGuiElement from "../utilities/loadGuiElement.js";
 
 export class AuthorsList extends HTMLElement {
     static authors = null;
@@ -30,6 +31,8 @@ export class AuthorsList extends HTMLElement {
         try {
             const authors = await APIs.getAuthors();
             AuthorsList.authors = authors;
+            console.log(authors);
+            
             this.render(authors);
         } catch (error) {
             console.error("Error loading authors:", error);
@@ -37,32 +40,38 @@ export class AuthorsList extends HTMLElement {
         }
     }
 
-    render(authors) {
+    render() {
         const authorsContainer = this.querySelector('#authors-container');
-        if (!authorsContainer) return;
-
-        authorsContainer.innerHTML = ""; 
-
-        Object.entries(authors).forEach(([author, posts]) => {
+        if (!authorsContainer || !AuthorsList.authors) return;
+    
+        authorsContainer.innerHTML = ""; // Clear existing content
+    
+        Object.entries(AuthorsList.authors).forEach(([author, posts]) => {
+            const postCount = posts.length;
+            const isSubscribed = app.data.subscriptions?.includes(author);
+            const buttonText = isSubscribed ? "Unfollow" : "Follow";
+    
             const authorElement = document.createElement('div');
             authorElement.className = "author-item";
-
+    
             authorElement.innerHTML = `
-                <h3>${author}</h3>
-                <ul>
-                    ${posts.map(post => `<li>${post}</li>`).join("")}
-                </ul>
+                <div class="author-info">
+                    <h3 class="author-name">${author}</h3>
+                    <p class="post-count">Posts: ${postCount}</p>
+                </div>
+                <button class="follow-button">${buttonText}</button>
             `;
+    
+            const followButton = authorElement.querySelector('.follow-button');
+            followButton.addEventListener('click', () => {
+                console.log(`${buttonText} clicked for ${author}`);
+            });
+    
             authorsContainer.appendChild(authorElement);
         });
     }
+    
 
-    renderError(errorMessage) {
-        const authorsContainer = this.querySelector('#authors-container');
-        if (!authorsContainer) return;
-
-        authorsContainer.innerHTML = `<p class="error-message">${errorMessage}</p>`;
-    }
 }
 
 customElements.define("authors-list", AuthorsList);
