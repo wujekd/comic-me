@@ -36,10 +36,10 @@ export class StoriesPage extends HTMLElement {
                 
                 for (let story of app.data.stories){
                     const storyItem = document.createElement("div");
-                    console.log(story);
+                    console.log("story: ", story);
                     storyItem.innerHTML = `
-                        <h2>${story.name}</h2>
-                        <p>${story.description}</p>
+                        <h2>${story.title.S}</h2>
+                        <p>${story.description.S}</p>
                         
                     `;
                     // <img src="${book.img_url}" />
