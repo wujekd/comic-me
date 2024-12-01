@@ -28,6 +28,25 @@ const APIs = {
         return await result.json();
     },
 
+    getAuthors: async ()=> {
+
+        const result = await fetch(APIs.getAuthorsUrl, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                // "Authorization": `Bearer ${token}`, 
+            }
+        })
+        console.log("getAuthors api res:", result)
+        if (!result.ok) {
+            throw new Error(`get Authors API error: ${JSON.stringify(result)} ${result.statusText}`);
+        }
+
+        return await result.json();
+
+
+    },
+
 
     searchByUser: async (username) => {
         const token = sessionStorage.getItem("jwt");
