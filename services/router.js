@@ -45,14 +45,15 @@ const router = {
             case "/login":
                 page = document.createElement("login-page");
                 break;
-                case "/add-story":
+            case "/add-story":
                 page = document.createElement("add-page");
+                break;
+            case "/your-stories":
+                page = document.createElement("your-stories");
                 break;
             case "/logout":
                 handleLogout();
                 return;
-            
-
         }
 
         if(page){

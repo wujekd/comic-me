@@ -5,7 +5,8 @@ import { loadStories } from "./stories.js";
 const Data = {
     stories: null,
     logged: null,
-    subscriptions: null
+    subscriptions: null,
+    yourStories: null,
 
 }
 
@@ -13,18 +14,25 @@ const proxiedData = new Proxy(Data, {
     set(target, property, value ) {
         target[property] = value;
 
-        if (property == "stories") {
-            window.dispatchEvent(new Event('storiesloaded'));
-        }
+        switch (property){
+            case "stories":
+                window.dispatchEvent(new Event('storiesloaded'));
+                break;
 
-        if (property == "subscriptions"){
-            console.log("subs event dispatched")
-            window.dispatchEvent(new Event('subs'));
-        }
+            case "subscriptions":
+                console.log("subs event dispatched")
+                window.dispatchEvent(new Event('subs'));
+                break;
+                
+            case "logged":
+                console.log("logged event triggered")
+                window.dispatchEvent(new Event("logged"))
+                break;
 
-        if (property == "logged"){
-            console.log("logged event triggered")
-            window.dispatchEvent(new Event("logged"))
+            case "yourStories":
+                console.log("yourStoriesChange event dispatched");
+                window.dispatchEvent(new Event("yourStoriesChange"));
+                break;
         }
         return true;
     }
@@ -66,7 +74,4 @@ export const handleLogout = ()=> {
 
 
     router.go("/")
-
 }
-
-
