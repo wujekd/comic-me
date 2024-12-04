@@ -28,7 +28,7 @@ export class RegisterPage extends HTMLElement {
 
 
             try {
-                const response = await fetch('https://eq4pguzwid.execute-api.us-east-1.amazonaws.com/v1/register', {
+                const response = await fetch('https://lx4u7ljrr0.execute-api.us-east-1.amazonaws.com/M00879927/users', {
                     method: 'POST',
                     body: JSON.stringify(data),
                     headers: {

@@ -6,7 +6,7 @@ import { checkToken } from "./checkToken.mjs";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
-const BUCKET_NAME = "cat-picz";
+const BUCKET_NAME = "stories-pics";
 const REGION = "us-east-1";
 const s3Client = new S3Client({ region: REGION });
 
@@ -65,12 +65,12 @@ export const handler = async (event, context) => {
 
             const getItemsForPartitionKey = async (userName) => {
               const params = {
-                TableName: "comics",
+                TableName: "stories",
                 KeyConditionExpression: "author = :u",
                 ExpressionAttributeValues: {
                   ":u": { S: userName },
                 },
-                ProjectionExpression: "tags, id, author"
+                ProjectionExpression: "tags, id, author, title, description, imageUrl"
               };
               return ddbClient.send(new QueryCommand(params));
             };
@@ -99,7 +99,7 @@ export const handler = async (event, context) => {
               console.log("Image URL:", imageUrl);
       
               const putParams = {
-                  TableName: "comics",
+                  TableName: "stories",
                   Item: marshall(
                       {
                           author: decoded.username,

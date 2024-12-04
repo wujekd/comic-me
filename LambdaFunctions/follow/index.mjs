@@ -3,12 +3,14 @@ import { GetItemCommand, UpdateItemCommand } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 import { checkToken } from "./checkToken.mjs";
 
+
 export const handler = async (event, context) => {
     let status = 200;
     const headers = {
         "Content-Type": "application/json"
       };
     let body;
+    
     
     const token = event.headers?.Authorization?.replace("Bearer ", "");
     let decoded = null;

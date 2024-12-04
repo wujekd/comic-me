@@ -26,7 +26,7 @@ export class LoginPage extends HTMLElement {
 
             try {
                 document.getElementById("login").innerHTML = "Logging in...";
-                const response = await fetch("https://eq4pguzwid.execute-api.us-east-1.amazonaws.com/v1/login", {
+                const response = await fetch("https://lx4u7ljrr0.execute-api.us-east-1.amazonaws.com/M00879927/login", {
                     method: "POST",
                     body: json,
                     headers: {

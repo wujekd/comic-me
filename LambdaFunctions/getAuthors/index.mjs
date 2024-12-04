@@ -1,36 +1,56 @@
-import {DynamoDBClient} from "@aws-sdk/client-dynamodb";
 
-const REGION = "us-east-1"
-const param = {region: REGION};
-const ddbClient = new DynamoDBClient(param);
-// export {ddbClient};
-// const dynamoDb = new AWS.DynamoDB.DocumentClient();
-const tableName = 'comics'; // Replace with your table name
+
+import { DynamoDBClient, ScanCommand } from "@aws-sdk/client-dynamodb";
+import { unmarshall } from "@aws-sdk/util-dynamodb";
+
+const REGION = "us-east-1";
+const tableName = 'stories';
+
+const ddbClient = new DynamoDBClient({ region: REGION });
 
 export const handler = async () => {
     try {
-        
         const params = {
             TableName: tableName,
-            ProjectionExpression: 'PK, SK', // Fetch only user (PK) and title (SK)
+            ProjectionExpression: 'author, id, title, description', // Only fetch required attributes
         };
 
-        const result = await ddbClient.scan(params)
+        // Scan the table
+        const result = await ddbClient.send(new ScanCommand(params));
 
-        // Group items by user (PK)
-        const authors = result.Items.reduce((acc, item) => {
-            const user = item.PK;
-            const title = item.SK;
+        // Check if items exist
+        if (!result.Items || result.Items.length === 0) {
+            return {
+                statusCode: 200,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                },
+                body: JSON.stringify({ message: "No items found in the table." }),
+            };
+        }
 
-            if (!acc[user]) {
-                acc[user] = [];
+        // Convert DynamoDB raw items to plain JavaScript objects
+        const items = result.Items.map(item => unmarshall(item));
+
+        // Group items by author
+        const authors = items.reduce((acc, item) => {
+            const { author, id, title, description } = item;
+
+            if (!author) {
+                console.warn("Skipping item without author:", item);
+                return acc;
             }
 
-            acc[user].push(title);
+            if (!acc[author]) {
+                acc[author] = [];
+            }
+
+            acc[author].push({ id, title, description });
             return acc;
         }, {});
 
-        // Return the formatted JSON
+        // Return the grouped authors
         return {
             statusCode: 200,
             headers: {

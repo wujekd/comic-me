@@ -117,3 +117,52 @@ input {
     border: 1px solid var(--color3);
     border-radius: 15px;
 }
+
+
+
+
+
+section {
+    background-color: var(--color6);
+    border-radius: 8px;
+}
+
+.story-div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 17rem;
+    gap: 1rem;
+    
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.story-info h2 {
+    max-height: 1rem;
+    flex-shrink: 1;
+    color: var(--color4);
+    
+    margin: 0;
+}
+
+.story-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--color3);
+    width: 60%;
+    height: 90%;
+
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.story-pic-list {
+    max-height: 15rem;
+    width: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-right: 3rem;
+}

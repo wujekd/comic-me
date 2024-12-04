@@ -1,8 +1,8 @@
 const APIs = {
 
-    url: "https://eq4pguzwid.execute-api.us-east-1.amazonaws.com/prod/contents",
-    searchUrl: "https://eq4pguzwid.execute-api.us-east-1.amazonaws.com/prod/contents/search",
-    getAuthorsUrl: "https://eq4pguzwid.execute-api.us-east-1.amazonaws.com/prod/get-authors",
+    url: "https://lx4u7ljrr0.execute-api.us-east-1.amazonaws.com/M00879927/contents",
+    searchUrl: "",
+    getAuthorsUrl: "https://lx4u7ljrr0.execute-api.us-east-1.amazonaws.com/M00879927/contents/get-authors",
 
     fetchStories: async () => {
         const token = sessionStorage.getItem("jwt"); 
@@ -19,7 +19,8 @@ const APIs = {
             }
             
         });
-
+        console.log(result);
+        
         if (!result.ok) {
             console.log(result)
             throw new Error(`API error: ${JSON.stringify(result)} ${result.statusText}`);

@@ -49,7 +49,7 @@ export class AddStory extends HTMLElement {
     
         try {
             
-            const response = await fetch("https://eq4pguzwid.execute-api.us-east-1.amazonaws.com/prod/contents", {
+            const response = await fetch("https://lx4u7ljrr0.execute-api.us-east-1.amazonaws.com/M00879927/contents", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -57,6 +57,7 @@ export class AddStory extends HTMLElement {
                 },
                 body: JSON.stringify(postData),
             });
+            console.log(" RES -- ", response )
     
             if (!response.ok) {
                 throw new Error(response.statusText);

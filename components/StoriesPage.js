@@ -17,7 +17,7 @@ export class StoriesPage extends HTMLElement {
 
 
     connectedCallback(){
-        const temp = document.getElementById('books-template');
+        const temp = document.getElementById('stories-template');
         const node = temp.content.cloneNode(true);
         this.root.appendChild(node);
         this.render();
@@ -32,24 +32,29 @@ export class StoriesPage extends HTMLElement {
     render(){
         if (app.data.logged){
             if (app.data.stories) {
-                this.root.querySelector("#books").innerHTML = "";
+                this.root.querySelector("#stories").innerHTML = "";
                 
                 for (let story of app.data.stories){
                     const storyItem = document.createElement("div");
-                    console.log("story: ", story);
+                    storyItem.classList.add("story-div")
                     storyItem.innerHTML = `
+                    <div class="story-info">
                         <h2>${story.title.S}</h2>
                         <p>${story.description.S}</p>
+                    </div>
+                    <img src="${story.imageUrl.S}" class="story-pic-list" alt="pic" />
                         
                     `;
+                    console.log(story.imageUrl.S);
+                    
                     // <img src="${book.img_url}" />
-                    this.root.querySelector("#books").appendChild(storyItem)
+                    this.root.querySelector("#stories").appendChild(storyItem)
                 }
             } else {
-                this.root.querySelector("#books").innerHTML = "Loading Stories..."
+                this.root.querySelector("#stories").innerHTML = "Loading Stories..."
             }
         } else {
-            this.root.querySelector("#books").innerHTML = "Login to see stories..."
+            this.root.querySelector("#stories").innerHTML = "Login to see stories..."
         }
     }
 }

@@ -14,7 +14,6 @@ export default function(child, parent) {
             requestAnimationFrame(() => {
                 fadeInNewChild();
             });
-            
         });
     } else {
         fadeInNewChild();
