@@ -26,6 +26,7 @@
             <a class="navlink material-symbols-outlined" id="" href="/login">login</a>
             <span id="badge" hidden></span>
             <a class="navlink" id="" href="/add-story">Add Story</a>
+            <a class="navlink" id="" href="/search">Search</a>
 
             <a class="navlink" id="" href="/your-stories">Your Stories</a>
             <a class="navlink" id="" href="/logout">logout</a>
@@ -134,5 +135,45 @@
             </div>
         </section>
     </template>
+    <template id="story-detail-template">
+        <div id="story-detail-container">
+            <div class="story-info">
+                <h2 class="story-title"></h2>
+                <p class="story-description"></p>
+                <img class="story-image" src="" alt="" style="max-width: 100%; height: auto;">
+            </div>
+        </div>
+    </template>
+
+    <template id="search-view-template">
+        <div id="search-view-container">
+            <!-- Search Form -->
+            <div id="search-form-container">
+                <form id="search-form">
+                    <fieldset>
+                        <legend>Search Options:</legend>
+                        <label>
+                            <input type="radio" name="search-type" value="tags" checked> Stories by Tags
+                        </label>
+                        <label>
+                            <input type="radio" name="search-type" value="user"> Stories by User
+                        </label>
+                        <label>
+                            <input type="radio" name="search-type" value="users"> Users
+                        </label>
+                    </fieldset>
+                    <input type="text" id="search-input" placeholder="Enter your search...">
+                    <button type="submit" id="search-button">Search</button>
+                </form>
+            </div>
+    
+            <!-- Search Results -->
+            <div id="search-results-container">
+                <!-- Search results will be rendered here -->
+            </div>
+        </div>
+    </template>
+    
+    
 </body>
 </html>

@@ -1,3 +1,5 @@
+import router from "../services/router.js";
+
 export class StoriesPage extends HTMLElement {
 
     constructor() {
@@ -28,35 +30,37 @@ export class StoriesPage extends HTMLElement {
         });
     }
 
-
-    render(){
-        if (app.data.logged){
+    render() {
+        if (app.data.logged) {
             if (app.data.stories) {
                 this.root.querySelector("#stories").innerHTML = "";
-                
-                for (let story of app.data.stories){
+    
+                for (let story of app.data.stories) {
                     const storyItem = document.createElement("div");
-                    storyItem.classList.add("story-div")
+                    storyItem.classList.add("story-div");
                     storyItem.innerHTML = `
-                    <div class="story-info">
-                        <h2>${story.title.S}</h2>
-                        <p>${story.description.S}</p>
-                    </div>
-                    <img src="${story.imageUrl.S}" class="story-pic-list" alt="pic" />
-                        
+                        <div class="story-info">
+                            <h2>${story.title.S}</h2>
+                            <p>${story.description.S}</p>
+                        </div>
+                        <img src="${story.imageUrl.S}" class="story-pic-list" alt="pic" />
                     `;
-                    console.log(story.imageUrl.S);
                     
-                    // <img src="${book.img_url}" />
-                    this.root.querySelector("#stories").appendChild(storyItem)
+                    // Add event listener to trigger router
+                    storyItem.addEventListener("click", () => {
+                        router.go(`/story-detail?id=${story.id.N}`);
+                    });
+    
+                    this.root.querySelector("#stories").appendChild(storyItem);
                 }
             } else {
-                this.root.querySelector("#stories").innerHTML = "Loading Stories..."
+                this.root.querySelector("#stories").innerHTML = "Loading Stories...";
             }
         } else {
-            this.root.querySelector("#stories").innerHTML = "Login to see stories..."
+            this.root.querySelector("#stories").innerHTML = "Login to see stories...";
         }
     }
+    
 }
 
 customElements.define("stories-page", StoriesPage);
