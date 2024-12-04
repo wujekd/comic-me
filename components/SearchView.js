@@ -109,8 +109,11 @@ export class SearchView extends HTMLElement {
                 const res = await APIs.follow(user);
                 console.log(res);
                 
-                window.dispatchEvent(new Event("sub"))
+                
                 app.data.subscriptions.push(user);
+
+                window.dispatchEvent(new Event("subs"))
+
                 this.renderUser(user);
 
                 loadStories();
