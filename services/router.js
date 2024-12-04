@@ -23,16 +23,16 @@ const router = {
     },
 
 
-
     go: (route, save = true) => {
-        
-        if(save){
-            history.pushState({ route }, "", route)
+        if (save) {
+            history.pushState({ route }, "", route);
         }
-
-
+    
+        // Extract the base route, ignoring any URL parameters
+        const baseRoute = route.split('?')[0];
+    
         let page = null;
-        switch (route) {
+        switch (baseRoute) {
             case "/":
                 page = document.createElement("index-page");
                 break;
@@ -54,17 +54,24 @@ const router = {
             case "/logout":
                 handleLogout();
                 return;
+            case "/story-detail":
+                console.log("story det triggered in router");
+                
+                page = document.createElement("story-detail");
+                break;
+            case "/search":
+                page = document.createElement("search-view");
         }
-
-        if(page){
+    
+        if (page) {
             document.querySelector("main").innerHTML = "";
-            // document.querySelector("main").appendChild(page);
             loadGuiElement(page, document.querySelector("main"));
-
+    
             window.scrollX = 0;
             window.scrollY = 0;
         }
     }
+    
 }
 
 export default router;
