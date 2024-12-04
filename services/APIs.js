@@ -1,8 +1,11 @@
+
+
 const APIs = {
 
     url: "https://lx4u7ljrr0.execute-api.us-east-1.amazonaws.com/M00879927/contents",
     searchUrl: "",
     getAuthorsUrl: "https://lx4u7ljrr0.execute-api.us-east-1.amazonaws.com/M00879927/contents/get-authors",
+    followUrl: "https://lx4u7ljrr0.execute-api.us-east-1.amazonaws.com/M00879927/follow",
 
     fetchStories: async () => {
         const token = sessionStorage.getItem("jwt"); 
@@ -44,8 +47,37 @@ const APIs = {
         }
 
         return await result.json();
+    },
 
-
+    follow: async (username)=> {
+        const result = await fetch(APIs.followUrl, {
+            method: "POST",
+            body: JSON.stringify({"subTo": username}),
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${sessionStorage.getItem("jwt")}`, 
+            }
+        });
+        console.log("follow api: ", result)
+        if (!result.ok) {
+            throw new Error(`get Authors API error: ${JSON.stringify(result)} ${result.statusText}`);
+        }
+        return await result.json();
+    },
+    unfollow: async (username)=> {
+        const result = await fetch(APIs.followUrl, {
+            method: "DELETE",
+            body: JSON.stringify({"unsubFrom": username}),
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${sessionStorage.getItem("jwt")}`, 
+            }
+        })
+        console.log("follow api: ", result)
+        if (!result.ok) {
+            throw new Error(`get Authors API error: ${JSON.stringify(result)} ${result.statusText}`);
+        }
+        return await result.json();
     },
 
 

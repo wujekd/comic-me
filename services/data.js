@@ -22,6 +22,7 @@ const proxiedData = new Proxy(Data, {
 
             case "subscriptions":
                 console.log("subs event dispatched")
+                // sessionStorage.setItem("subbed", app.data.subscriptions.join("."))
                 window.dispatchEvent(new Event('subs'));
                 break;
                 

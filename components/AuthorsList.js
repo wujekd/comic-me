@@ -1,5 +1,6 @@
 import APIs from "../services/APIs.js";
 import loadGuiElement from "../utilities/loadGuiElement.js";
+import { loadStories } from "../services/stories.js";
 
 export class AuthorsList extends HTMLElement {
     static authors = null;
@@ -63,13 +64,31 @@ export class AuthorsList extends HTMLElement {
             `;
     
             const followButton = authorElement.querySelector('.follow-button');
-            followButton.addEventListener('click', () => {
-                console.log(`${buttonText} clicked for ${author}`);
+            followButton.addEventListener('click', async () => {
+                console.log(author)
+                if (isSubscribed) {
+                    const res = await APIs.unfollow(author);
+                    console.log(res);
+                    
+                    app.data.subscriptions = app.data.subscriptions.filter(sub => sub !== author);
+                    this.render();
+                    loadStories();
+                } else {
+                    const res = await APIs.follow(author);
+                    console.log(res);
+                    
+                    
+                    app.data.subscriptions.push(author);
+                    this.render();
+                    window.dispatchEvent(new Event("subs")) //why ?
+                    loadStories();
+                }
             });
     
             authorsContainer.appendChild(authorElement);
         });
     }
+    
     
 
 }
