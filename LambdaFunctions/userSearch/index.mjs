@@ -28,7 +28,7 @@ export const handler = async (event, context) => {
         const params = {
             TableName: "users",
             Key: { username: { S : username }},
-            ProjectionExpression: "username, subbed"
+            ProjectionExpression: "username"
         };
 
         const data = await ddbClient.send(new GetItemCommand(params));
@@ -47,3 +47,5 @@ export const handler = async (event, context) => {
         body: JSON.stringify(body)
     };
 };
+
+// aws lambda update-function-code --function-name userSearch --zip-file fileb://lambda.zip > /dev/null

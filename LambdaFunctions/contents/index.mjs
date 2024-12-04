@@ -97,7 +97,7 @@ export const handler = async (event, context) => {
               const fileName = `${decoded.username}/${Date.now()}`;
               const imageUrl = `https://${BUCKET_NAME}.s3.${REGION}.amazonaws.com/${fileName}`;
               console.log("Image URL:", imageUrl);
-      
+              
               const putParams = {
                   TableName: "stories",
                   Item: marshall(
@@ -107,7 +107,7 @@ export const handler = async (event, context) => {
                           title: requestJSON.name || "Untitled",
                           description: requestJSON.desc || "",
                           tags: requestJSON.tags || [],
-                          imageUrl: imageUrl, // Add the image URL to the item
+                          imageUrl: imageUrl,
                       },
                       { removeUndefinedValues: true }
                   ),

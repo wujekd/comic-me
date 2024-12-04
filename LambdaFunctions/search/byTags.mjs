@@ -12,11 +12,14 @@ export const byTags = async (tags)=> {
         return acc;
     }, {});
 
+
     const params = {
-        TableName: "comics",
+
+        TableName: "stories",
         FilterExpression: filterConditions,
         ExpressionAttributeValues: expressionAttributeValues,
         ProjectionExpression: "author, id, description, tags"
+
     };
 
 

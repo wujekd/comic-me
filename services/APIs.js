@@ -3,9 +3,10 @@
 const APIs = {
 
     url: "https://lx4u7ljrr0.execute-api.us-east-1.amazonaws.com/M00879927/contents",
-    searchUrl: "",
+    searchUrl: "https://lx4u7ljrr0.execute-api.us-east-1.amazonaws.com/M00879927/contents/search",
     getAuthorsUrl: "https://lx4u7ljrr0.execute-api.us-east-1.amazonaws.com/M00879927/contents/get-authors",
     followUrl: "https://lx4u7ljrr0.execute-api.us-east-1.amazonaws.com/M00879927/follow",
+    userSearchUrl: "https://lx4u7ljrr0.execute-api.us-east-1.amazonaws.com/M00879927/users/search",
 
     fetchStories: async () => {
         const token = sessionStorage.getItem("jwt"); 
@@ -105,9 +106,69 @@ const APIs = {
         }
     
         const response = await result.json()
-        return response
-    }
+        console.log(response.response.Items);
+        
+        return response.response.Items
+    },
+
+
+    searchByTags: async (tags) =>{
+        const token = sessionStorage.getItem("jwt");
     
+        if (!token) {
+            throw new Error("User is not authenticated. JWT is missing.");
+        }
+
+        const searchParams = new URLSearchParams({ search: "tags", tags: tags }).toString();
+        const searchUrlWithParams = `${APIs.searchUrl}?${searchParams}`;
+    
+        const result = await fetch(searchUrlWithParams, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+            }
+        });
+    
+        if (!result.ok) {
+            console.log(result);
+            throw new Error(`API error: ${JSON.stringify(result)} ${result.statusText}`);
+        }
+    
+        const response = await result.json();
+        console.log(response.response.Items);
+        return response.response.Items
+    },
+
+    findUser: async (username)=> {
+        const token = sessionStorage.getItem("jwt");
+    
+        if (!token) {
+            throw new Error("User is not authenticated. JWT is missing.");
+        }
+
+        const searchParams = new URLSearchParams({ user: username }).toString();
+        const searchUrlWithParams = `${APIs.userSearchUrl}?${searchParams}`;
+    
+        const result = await fetch(searchUrlWithParams, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+            }
+        });
+
+
+        console.log(result)
+    
+        if (!result.ok) {
+            throw new Error(`API error: ${JSON.stringify(result)} ${result.statusText}`);
+        }
+    
+        const response = await result.json();
+        console.log(response);
+        return [response.result]
+    },
 };
 
 
