@@ -28,10 +28,9 @@ const router = {
             history.pushState({ route }, "", route);
         }
     
-        // Extract the base route, ignoring any URL parameters
         const baseRoute = route.split('?')[0];
-    
         let page = null;
+        
         switch (baseRoute) {
             case "/":
                 page = document.createElement("index-page");
@@ -55,8 +54,6 @@ const router = {
                 handleLogout();
                 return;
             case "/story-detail":
-                console.log("story det triggered in router");
-                
                 page = document.createElement("story-detail");
                 break;
             case "/search":
@@ -66,12 +63,10 @@ const router = {
         if (page) {
             document.querySelector("main").innerHTML = "";
             loadGuiElement(page, document.querySelector("main"));
-    
             window.scrollX = 0;
             window.scrollY = 0;
         }
-    }
-    
+    } 
 }
 
 export default router;

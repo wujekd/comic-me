@@ -1,3 +1,5 @@
+import APIs from "../services/APIs.js";
+
 export class SearchView extends HTMLElement {
     constructor() {
         super();
@@ -13,44 +15,32 @@ export class SearchView extends HTMLElement {
             event.preventDefault();
             this.performSearch();
         });
+        this.renderResults([]);
     }
 
-    performSearch() {
+    async performSearch() {
         const searchType = this.querySelector('input[name="search-type"]:checked').value;
         const searchQuery = this.querySelector('#search-input').value.trim();
 
-        // Perform search logic based on search type and query (placeholder for now)
         let results = [];
-        if (searchType === 'tags') {
-            results = this.searchByTags(searchQuery);
-        } else if (searchType === 'user') {
-            results = this.searchByUser(searchQuery);
-        } else if (searchType === 'users') {
-            results = this.searchUsers(searchQuery);
+        try {
+            if (searchType === 'tags') {
+                // results = await APIs.searchByTags(searchQuery);
+            } else if (searchType === 'usersPosts') {
+                results = await APIs.searchByUser(searchQuery);
+            } else if (searchType === 'user') {
+                // results = await APIs.searchUsers(searchQuery);
+            }
+        } catch (error) {
+            console.error("Error during search: ", error);
         }
 
-        // Render search results
         this.renderResults(results);
-    }
-
-    searchByTags(query) {
-        // Placeholder logic for searching by tags
-        return [`Result for tag: ${query}`];
-    }
-
-    searchByUser(query) {
-        // Placeholder logic for searching stories by user
-        return [`Result for stories by user: ${query}`];
-    }
-
-    searchUsers(query) {
-        // Placeholder logic for searching users
-        return [`Result for user: ${query}`];
     }
 
     renderResults(results) {
         const resultsContainer = this.querySelector('#search-results-container');
-        resultsContainer.innerHTML = ""; // Clear existing results
+        resultsContainer.innerHTML = ""; 
 
         if (results.length > 0) {
             results.forEach(result => {
@@ -60,7 +50,7 @@ export class SearchView extends HTMLElement {
                 resultsContainer.appendChild(resultElement);
             });
         } else {
-            resultsContainer.innerHTML = '<p>No results found.</p>';
+            resultsContainer.innerHTML = '<p>No results.</p>';
         }
     }
 }

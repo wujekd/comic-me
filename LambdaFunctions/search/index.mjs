@@ -7,7 +7,8 @@ import { checkToken } from "./checkToken.mjs";
 export const handler = async (event, context) => {
     let statusCode = 200;
     const headers = {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        'Access-Control-Allow-Origin': '*',
     };
     let body;
     let data;
@@ -56,4 +57,6 @@ export const handler = async (event, context) => {
         body: JSON.stringify(body)
     };
 };
+
+
 // aws lambda update-function-code --function-name contents --zip-file fileb://lambda.zip > /dev/null

@@ -11,6 +11,8 @@ import { LoginPage } from "./components/LoginPage.js"
 import { AddStory } from "./components/AddStory.js"
 import { TagList } from "./components/TagList.js"
 import { AuthorsList } from "./components/AuthorsList.js";
+import { StoryDetail } from "./components/StoryDetail.js";
+import { SearchView } from "./components/SearchView.js";
 
 
 

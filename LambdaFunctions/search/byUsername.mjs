@@ -7,7 +7,7 @@ import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 export const byUsername = async (username)=> {
 
     const params = {
-        TableName: "comics",
+        TableName: "stories",
         KeyConditionExpression: "author = :u",
         ExpressionAttributeValues: {
             ":u" : { S : username }
