@@ -137,7 +137,7 @@ const APIs = {
         }
 
         const searchParams = new URLSearchParams({ user: username }).toString();
-        const searchUrlWithParams = `${APIs.userSearchUrl}?${searchParams}`;
+        const searchUrlWithParams = `${API_CONFIG.userSearchUrl}?${searchParams}`;
     
         const result = await fetch(searchUrlWithParams, {
             method: "GET",
@@ -147,6 +147,8 @@ const APIs = {
             }
         });
     
+        console.log("API result find user: ",result)
+
         if (!result.ok) {
             throw new Error(`API error: ${JSON.stringify(result)} ${result.statusText}`);
         }

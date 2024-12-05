@@ -1,3 +1,4 @@
+import { API_CONFIG } from "../config.js";
 import router from "../services/router.js";
 
 export class RegisterPage extends HTMLElement {
@@ -28,7 +29,7 @@ export class RegisterPage extends HTMLElement {
 
 
             try {
-                const response = await fetch('https://lx4u7ljrr0.execute-api.us-east-1.amazonaws.com/M00879927/users', {
+                const response = await fetch(API_CONFIG.registerUrl, {
                     method: 'POST',
                     body: JSON.stringify(data),
                     headers: {
