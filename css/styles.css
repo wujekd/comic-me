@@ -6,7 +6,13 @@
     --color4: #B08968;
     --color5: #DDB892;
     --color6: #EDE0D4;
-    --highlight: #FBF2C6;
+    --highlight: #2998a7;
+
+    --highlight-faded: #16525a;
+
+    --alert: #9f2d6c;
+
+    --alert-faded: #5c183e;
     --btnhover: #534f3b;
 }
 
@@ -24,7 +30,7 @@ body>header {
 
 body>main {
     margin: auto;
-    margin-top: 60px;
+    margin-top: 78px;
     max-width: 70vw;
 }
 
@@ -33,11 +39,10 @@ your-stories {
 }
 #your-stories {
     width: 100%;
+
 }
 
 h1 {
-    background-color: var(--primaryColor);
-    color: white;
     margin: 0;
     text-align: center;
     padding: 1px 0 5px 0;
@@ -142,32 +147,44 @@ section.page {
 
 /* INDEX PAGE */
 #index {
-    /* background-color: var(--primaryColor); */
+    background-color: var(--color6);
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    gap: 2rem;
     color: white;
     padding: 15px;
     position: relative;
     padding-top: 1.2rem;
+
+    border: 1px solid var(--color4);
 }
 
-#index h2 {
-    position: absolute;
-    top: -23px;
-    left: 5px;
+
+.cta-button {
+    background-color: var(--highlight);
+    color: var(--background-surface);
+    border: 1px solid var(--secondaryColor);
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
 }
 
-#authors-list {
-    border: 12px solid var(--secondary-color);
-    
+.cta-button:hover {
+    background-color: var(--btnhover);
+    transform: scale(1.05);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
 }
 
-#author {
-    text-align: center;
-    background-color: #69513d;
-    margin: 0.3rem;
-}
-
-#index {
-    background-color: var(--primaryColor);
+.cta-button:active {
+    background-color: var(--highlight-faded);
+    transform: scale(0.98);
 }
 
 
@@ -184,8 +201,8 @@ section.page {
     max-width: 400px;
     margin: 50px auto;
     padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
+    background-color: var(--primaryColor);
+    border: 1px solid var(--color3);
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
@@ -196,7 +213,7 @@ section.page {
 #login h1 {
     text-align: center;
     font-size: 1.8rem;
-    color: #eeeeee;
+    color: white;
     margin-bottom: 20px;
 }
 
@@ -211,7 +228,7 @@ section.page {
 /* Style for labels */
 #login-form label {
     font-size: 0.9rem;
-    color: #555;
+    color: var(--secondaryColor);
     display: flex;
     flex-direction: column;
 }
@@ -220,37 +237,127 @@ section.page {
 #login-form input {
     padding: 10px;
     font-size: 1rem;
-    border: 1px solid #282727;
+    border: 1px solid var(--secondaryColor);
     border-radius: 5px;
     margin-top: 5px;
     transition: border-color 0.3s;
 }
 
 #login-form input:focus {
-    border-color: #007bff;
+    border-color: var(--highlight);
     outline: none;
 }
-
+#login-form label {
+    color: white;
+}
 /* Style for the submit button */
 #login-form button {
     padding: 10px 15px;
     font-size: 1rem;
-    color: #ffffff;
-    background-color: var(--color4);
-    border: none;
+    color: var(--background-surface);
+    background-color: var(--highlight);
+    border: 1px solid var(--highlight-faded);
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 #login-form button:hover {
     background-color: var(--btnhover);
+    transform: scale(1.05);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
 }
 
+#login-form button:active {
+    transform: scale(0.98);
+}
 
 .user-stats {
     font-size: smaller;
 }
+
+
+/* REGISTER  */
+
+#register-page {
+    background-color: var(--color6);
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    gap: 0.3rem;
+    /* color: white; */
+    padding: 15px;
+    position: relative;
+    padding-top: 1.2rem;
+
+    border: 1px solid var(--color4);
+}
+
+
+/* Style for the registration section */
+#registrationForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: var(--primaryColor);
+    border: 1px solid var(--color3);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+/* Style for labels */
+#registrationForm label {
+    font-size: 0.9rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Style for input fields */
+#registrationForm input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid var(--secondaryColor);
+    border-radius: 5px;
+    margin-top: 5px;
+    transition: border-color 0.3s;
+}
+
+#registrationForm input:focus {
+    border-color: var(--highlight);
+    outline: none;
+}
+
+/* Style for the submit button */
+#registrationForm button {
+    padding: 10px 15px;
+    font-size: 1rem;
+    color: var(--background-surface);
+    background-color: var(--highlight);
+    border: 1px solid var(--highlight-faded);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#registrationForm button:hover {
+    background-color: var(--btnhover);
+    transform: scale(1.05);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+#registrationForm button:active {
+    transform: scale(0.98);
+}
+
+
 
 
 
@@ -259,7 +366,7 @@ section.page {
 .image-placeholder {
     width: 300px;
     height: 300px; 
-    border: 2px dashed #ccc;
+    border: 1px dashed #ccc;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -283,10 +390,12 @@ section.page {
 /* YOUR STORIES  */
 
 #your-stories {
-    background-color: var(--background-surface);
+    background-color: var(--color6);
     padding: 7px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    
     font-family: Arial, sans-serif;
     color: var(--primaryColor);
 }
@@ -296,11 +405,14 @@ section.page {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    background-color: var(--primaryColor);
+    padding: 1rem;
+    border-radius: 8px;
 }
 
 #top-bar h2 {
     margin: 0;
-    color: var(--primaryColor);
+    color: white;
     font-size: 1.5em;
 }
 
@@ -308,6 +420,8 @@ section.page {
     display: flex;
     align-items: center;
     gap: 15px;
+    color: white;
+
 }
 
 #story-count {
@@ -316,7 +430,7 @@ section.page {
 }
 
 #add-story-button {
-    background-color: var(--primaryColor);
+    background-color: var(--highlight);
     color: white;
     border: none;
     padding: 8px 16px;
@@ -338,6 +452,7 @@ section.page {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+
 #tags-window h3 {
     margin: 0 0 10px 0;
     font-size: 1.2em;
@@ -345,13 +460,14 @@ section.page {
 }
 
 #tags-list {
+    background-color: var(--color3);
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
 }
 
 #stories-list {
-    background-color: var(--highlight);
+    background-color: var(--highlight-faded);
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -360,7 +476,7 @@ section.page {
 #stories-list h3 {
     margin: 0 0 10px 0;
     font-size: 1.2em;
-    color: var(--secondaryColor);
+    color: var(--background-surface);
 }
 
 #story-items div {
@@ -389,12 +505,23 @@ section.page {
 
 /* AUTHORS LIST  */
 
-#authors-container {
+#authors-container, .banner-content {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
     gap: 15px;
+    border-radius: 8px;
+    background-color: var(--primaryColor);
+
+    border: 1px solid var(--color3);
+
     padding: 10px;
+    min-height: 10rem;
+    margin-bottom: 1rem;
+}
+.banner-content {
+    flex-direction: column;
 }
 
 .author-item {
@@ -402,11 +529,10 @@ section.page {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid #ddd;
     border-radius: 8px;
     padding: 12px;
-    background-color: #f9f9f9;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: var(--color6);
+    box-shadow: 0 4px 6px var(--color4);
     width: 130px;
     height: 106px;
 }
@@ -426,30 +552,53 @@ section.page {
     color: #555;
 }
 
+
+
+
+
+
 .unfollow-button {
     padding: 10px 15px;
     font-size: 1em;
     color: white;
-    background-color: #ae00ff;
+    background-color: var(--alert);
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+.unfollow-button:hover {
+    background-color: var(--alert-faded);
+    transform: scale(1.05);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+.unfollow-button:active {
+    transform: scale(0.98);
+}
+
 .follow-button {
     padding: 10px 15px;
     font-size: 1em;
     color: white;
-    background-color: #007bff;
+    background-color: var(--highlight);
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.follow-button:hover {
+    background-color: var(--highlight-faded);
+    transform: scale(1.05);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+.follow-button:active {
+    transform: scale(0.98);
 }
 
-.follow-button:hover {
-    background-color: #0056b3;
-}
+
+
 
 
 
@@ -532,14 +681,14 @@ section.page {
 
 
 /* SEARCH  */
-
+/* Style for the search view */
 #search-view-container {
     padding: 20px;
     max-width: 800px;
     margin: 0 auto;
-    background-color: #f9f9f9;
+    background-color: var(--primaryColor);
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
 }
 
@@ -554,20 +703,21 @@ section.page {
 }
 
 fieldset {
-    border: 1px solid #ccc;
+    border: 1px solid var(--secondaryColor);
     border-radius: 8px;
     padding: 10px;
 }
 
 legend {
     font-weight: bold;
-    color: #333;
+    color: var(--background-surface);
 }
 
 label {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
+    color: var(--background-surface);
 }
 
 input[type="radio"] {
@@ -577,40 +727,176 @@ input[type="radio"] {
 #search-input {
     padding: 10px;
     font-size: 1em;
-    border: 1px solid #ccc;
+    border: 1px solid var(--secondaryColor);
     border-radius: 8px;
+    transition: border-color 0.3s;
+}
+
+#search-input:focus {
+    border-color: var(--highlight);
+    outline: none;
 }
 
 #search-button {
     padding: 10px 20px;
     font-size: 1em;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
+    color: var(--background-surface);
+    background-color: var(--highlight);
+    border: 1px solid var(--highlight-faded);
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 #search-button:hover {
-    background-color: #0056b3;
+    background-color: var(--btnhover);
+    transform: scale(1.05);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
 }
 
-#search-results-container {
-    margin-top: 20px;
+#search-button:active {
+    transform: scale(0.98);
 }
 
 .result-item {
     padding: 15px;
     margin-bottom: 10px;
-    background-color: #fff;
-    border: 1px solid #ddd;
+    background-color: var(--color6);
+    border: 1px solid var(--secondaryColor);
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 #search-results-container p {
-    color: #666;
+    color: white;
     text-align: center;
     font-style: italic;
+}
+fieldset {
+    background-color: var(--highlight-faded);
+}
+
+
+
+/* ADD STORY */
+
+
+/* Style for the add story section */
+#add-story {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: var(--primaryColor);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+/* Style for the image upload section */
+.image-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border: 1px solid var(--color3);
+    border-radius: 8px;
+    background-color: var(--color6);
+    margin-bottom: 20px;
+}
+
+.image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 200px;
+    border: 1px dashed var(--secondaryColor);
+    border-radius: 8px;
+    background-color: var(--background-surface);
+    color: var(--secondaryColor);
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.image-placeholder:hover {
+    border-color: var(--highlight);
+}
+
+.image-controls {
+    margin-top: 10px;
+}
+
+.image-controls button {
+    padding: 10px 15px;
+    font-size: 1rem;
+    color: var(--background-surface);
+    background-color: var(--alert);
+    border: 1px solid var(--alert-faded);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.image-controls button:hover {
+    background-color: var(--alert-faded);
+    transform: scale(1.05);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.image-controls button:active {
+    transform: scale(0.98);
+}
+
+/* Style for the form */
+#postForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#postForm label {
+    font-size: 0.9rem;
+    color: var(--background-surface);
+    display: flex;
+    flex-direction: column;
+}
+
+#postForm input[type="text"],
+#postForm textarea {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid var(--secondaryColor);
+    border-radius: 8px;
+    transition: border-color 0.3s;
+}
+
+#postForm input[type="text"]:focus,
+#postForm textarea:focus {
+    border-color: var(--highlight);
+    outline: none;
+}
+
+#submitPostBtn {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: var(--background-surface);
+    background-color: var(--highlight);
+    border: 1px solid var(--highlight-faded);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#submitPostBtn:hover {
+    background-color: var(--btnhover);
+    transform: scale(1.05);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+#submitPostBtn:active {
+    transform: scale(0.98);
 }
