@@ -1,12 +1,6 @@
-
+import { API_CONFIG } from "../config.js";
 
 const APIs = {
-
-    url: "https://lx4u7ljrr0.execute-api.us-east-1.amazonaws.com/M00879927/contents",
-    searchUrl: "https://lx4u7ljrr0.execute-api.us-east-1.amazonaws.com/M00879927/contents/search",
-    getAuthorsUrl: "https://lx4u7ljrr0.execute-api.us-east-1.amazonaws.com/M00879927/contents/get-authors",
-    followUrl: "https://lx4u7ljrr0.execute-api.us-east-1.amazonaws.com/M00879927/follow",
-    userSearchUrl: "https://lx4u7ljrr0.execute-api.us-east-1.amazonaws.com/M00879927/users/search",
 
     fetchStories: async () => {
         const token = sessionStorage.getItem("jwt"); 
@@ -15,7 +9,7 @@ const APIs = {
             throw new Error("User is not authenticated. JWT is missing.");
         }
 
-        const result = await fetch(APIs.url, {
+        const result = await fetch(API_CONFIG.url, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -23,10 +17,8 @@ const APIs = {
             }
             
         });
-        console.log(result);
         
         if (!result.ok) {
-            console.log(result)
             throw new Error(`API error: ${JSON.stringify(result)} ${result.statusText}`);
         }
 
@@ -35,7 +27,7 @@ const APIs = {
 
     getAuthors: async ()=> {
 
-        const result = await fetch(APIs.getAuthorsUrl, {
+        const result = await fetch(API_CONFIG.getAuthorsUrl, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -51,7 +43,7 @@ const APIs = {
     },
 
     follow: async (username)=> {
-        const result = await fetch(APIs.followUrl, {
+        const result = await fetch(API_CONFIG.followUrl, {
             method: "POST",
             body: JSON.stringify({"subTo": username}),
             headers: {
@@ -59,14 +51,14 @@ const APIs = {
                 "Authorization": `Bearer ${sessionStorage.getItem("jwt")}`, 
             }
         });
-        console.log("follow api: ", result)
+
         if (!result.ok) {
             throw new Error(`get Authors API error: ${JSON.stringify(result)} ${result.statusText}`);
         }
         return await result.json();
     },
     unfollow: async (username)=> {
-        const result = await fetch(APIs.followUrl, {
+        const result = await fetch(API_CONFIG.followUrl, {
             method: "DELETE",
             body: JSON.stringify({"unsubFrom": username}),
             headers: {
@@ -74,7 +66,7 @@ const APIs = {
                 "Authorization": `Bearer ${sessionStorage.getItem("jwt")}`, 
             }
         })
-        console.log("follow api: ", result)
+        
         if (!result.ok) {
             throw new Error(`get Authors API error: ${JSON.stringify(result)} ${result.statusText}`);
         }
@@ -90,7 +82,7 @@ const APIs = {
         }
     
         const searchParams = new URLSearchParams({ search: "user", name: username }).toString();
-        const searchUrlWithParams = `${APIs.searchUrl}?${searchParams}`;
+        const searchUrlWithParams = `${API_CONFIG.searchUrl}?${searchParams}`;
     
         const result = await fetch(searchUrlWithParams, {
             method: "GET",
@@ -106,7 +98,6 @@ const APIs = {
         }
     
         const response = await result.json()
-        console.log(response.response.Items);
         
         return response.response.Items
     },
@@ -120,7 +111,7 @@ const APIs = {
         }
 
         const searchParams = new URLSearchParams({ search: "tags", tags: tags }).toString();
-        const searchUrlWithParams = `${APIs.searchUrl}?${searchParams}`;
+        const searchUrlWithParams = `${API_CONFIG.searchUrl}?${searchParams}`;
     
         const result = await fetch(searchUrlWithParams, {
             method: "GET",
@@ -131,12 +122,10 @@ const APIs = {
         });
     
         if (!result.ok) {
-            console.log(result);
             throw new Error(`API error: ${JSON.stringify(result)} ${result.statusText}`);
         }
     
         const response = await result.json();
-        console.log(response.response.Items);
         return response.response.Items
     },
 
@@ -157,9 +146,6 @@ const APIs = {
                 "Authorization": `Bearer ${token}`,
             }
         });
-
-
-        console.log(result)
     
         if (!result.ok) {
             throw new Error(`API error: ${JSON.stringify(result)} ${result.statusText}`);
@@ -170,7 +156,6 @@ const APIs = {
         return [response.result]
     },
 };
-
 
 
 export default APIs;
