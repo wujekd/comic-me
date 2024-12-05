@@ -1,17 +1,59 @@
+import router from "../services/router.js";
+
 export default {
 
 
-    init: function(){
-        window.addEventListener("logged", ()=>{
-            this.render();
+    init: function() {
+        const nav = document.querySelector('nav');
+    
+        // Remove dynamically added elements
+        nav.querySelectorAll('.dynamic-navlink').forEach(element => element.remove());
+
+    
+        if (app.data.logged) {
+            
+            // User is logged in
+            const addStoryLink = `<a class="navlink dynamic-navlink material-symbols-outlined" id="" href="/add-story">Add <span class="nav-text">Story</span></a>`;
+            const yourStoriesLink = `<a class="navlink dynamic-navlink nav-text material-symbols-outlined" href="/your-stories">Your Stories</a>`;
+            const logoutLink = `<a class="navlink dynamic-navlink material-symbols-outlined" href="/logout">logout</a>`;
+            const searchLick = `<a class="navlink dynamic-navlink material-symbols-outlined" id="" href="/search">search</a>`;
+            nav.insertAdjacentHTML('beforeend', yourStoriesLink);
+            nav.insertAdjacentHTML('beforeend', searchLick);
+            nav.insertAdjacentHTML('beforeend', logoutLink);
+            nav.insertAdjacentHTML('beforeend', addStoryLink);
+        } else {
+            console.log("NOT logged from menu");
+            
+            // User is not logged in
+            const registerLink = `<a class="navlink dynamic-navlink material-symbols-outlined" href="/register">how_to_reg</a>`;
+            const loginLink = `<a class="navlink dynamic-navlink material-symbols-outlined" href="/login">login</a>`;
+            nav.insertAdjacentHTML('beforeend', registerLink);
+            nav.insertAdjacentHTML('beforeend', loginLink);
+        }
+
+        document.querySelectorAll("a.navlink").forEach(nav => {
+            nav.addEventListener("click", e => {
+                e.preventDefault();
+                const url = e.target.getAttribute("href");
+                router.go(url);
+
+            });
         })
+    
+        window.addEventListener("logged", () => {
+            this.init();
+        });
+        
         this.render();
     },
+    
+    
 
     render: function() {
         const userStats = document.querySelector(".user-stats"); 
         
         if (app.data.logged) {
+            
            
             userStats.innerHTML = `
                 <span>Hi ${ app.data.logged }</span>, you have
@@ -21,12 +63,11 @@ export default {
 
 
             const updateStories = () => {
-                document.getElementById("storycount").textContent = app.data.stories.length || 0;
+                document.getElementById("storycount").textContent = app.data.stories?.length || 0;
             };
 
             const updateSubs = () => {
-                console.log("subs len: ", app.data.subscriptions.length)
-                document.getElementById("subcount").textContent = app.data.subscriptions.length || 0;
+                document.getElementById("subcount").textContent = app.data.subscriptions?.length || 0;
             };
 
 
@@ -36,6 +77,9 @@ export default {
             // Save event listeners for removal later
             this._listeners = { updateStories, updateSubs };
         } else {
+
+
+            console.log("top menu render NOT logged:" , app.data.logged);
 
             userStats.textContent = "User Not Logged In!";
 

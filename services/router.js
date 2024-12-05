@@ -1,18 +1,13 @@
+import topMenu from "../components/topMenu.js";
 import loadGuiElement from "../utilities/loadGuiElement.js";
 import { handleLogout } from "./data.js";
+import { AuthorsList } from "../components/AuthorsList.js";
 
 
 const router = {
     init: ()=> {
         
-        document.querySelectorAll("a.navlink").forEach(nav => {
-            nav.addEventListener("click", e => {
-                e.preventDefault();
-                const url = e.target.getAttribute("href");
-                router.go(url);
-
-            });
-        })
+        // topMenu.init();
 
         // dont replicate history entries when recalled (save = false)
         window.addEventListener("popstate", (e) => {
@@ -30,7 +25,7 @@ const router = {
     
         const baseRoute = route.split('?')[0];
         let page = null;
-        
+
         switch (baseRoute) {
             case "/":
                 page = document.createElement("index-page");
@@ -51,7 +46,21 @@ const router = {
                 page = document.createElement("your-stories");
                 break;
             case "/logout":
-                handleLogout();
+                sessionStorage.removeItem("jwt");
+                sessionStorage.removeItem("username");
+                sessionStorage.removeItem("subbed");
+
+
+                app.data.logged = false;
+                topMenu.render();
+                 // once logged is null render to remove event listeners to subscription and stories data change 
+                app.data.subscriptions = null;
+                app.data.stories = null;
+
+                AuthorsList.authors = null
+                topMenu.init()
+
+                router.go("/")
                 return;
             case "/story-detail":
                 page = document.createElement("story-detail");

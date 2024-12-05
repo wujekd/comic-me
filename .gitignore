@@ -17,3 +17,4 @@ notes.txt
 LambdaFunctions/userSearch/lambda.zip
 LambdaFunctions/getAuthors/.DS_Store
 .DS_Store
+config.js
