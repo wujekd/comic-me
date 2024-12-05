@@ -28,7 +28,9 @@ export class YourStories extends HTMLElement {
     async loadUserStories() {
         try {
             const result = await APIs.searchByUser(app.data.logged);
-            app.data.yourStories = result.response.Items || [];
+            console.log(result);
+            
+            app.data.yourStories = result || [];
         } catch (error) {
             console.error("Failed to load user stories:", error);
             app.data.yourStories = [];
@@ -37,6 +39,8 @@ export class YourStories extends HTMLElement {
 
     render(){
         if (app.data.yourStories) {
+            
+            document.querySelector("#your-story-count").textContent = `You have ${app.data.yourStories.length} stories.`
             
             this.querySelector("#story-items").innerHTML = "";
             
@@ -47,7 +51,8 @@ export class YourStories extends HTMLElement {
                     <p>${story.description.S}`
 
                 this.querySelector("#story-items").append(storyItem);
-            }  
+            }
+
             
         } else {
             console.log("render 2", app.data.yourStories);

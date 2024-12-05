@@ -7,7 +7,7 @@ import { AuthorsList } from "../components/AuthorsList.js";
 const router = {
     init: ()=> {
         
-        // topMenu.init();
+        topMenu.init();
 
         // dont replicate history entries when recalled (save = false)
         window.addEventListener("popstate", (e) => {

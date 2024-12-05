@@ -24,7 +24,7 @@ app.router = Router;
 window.addEventListener("DOMContentLoaded", ()=> {
 
 
-    topMenu.init();
+    // topMenu.init();
 
     if (sessionStorage.getItem("jwt")) {
         initState();

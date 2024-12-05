@@ -32,67 +32,58 @@ export class AuthorsList extends HTMLElement {
         try {
             const authors = await APIs.getAuthors();
             AuthorsList.authors = authors;
-            console.log(authors);
-            
             this.render(authors);
+
         } catch (error) {
-            console.error("Error loading authors:", error);
             this.renderError("Failed to load authors.");
         }
     }
 
-render() {
-    console.log(app.data.stories);
-    
-    const authorsContainer = this.querySelector('#authors-container');
-    if (!authorsContainer || !AuthorsList.authors) return;
+    render() {
+        
+        const authorsContainer = this.querySelector('#authors-container');
+        if (!authorsContainer || !AuthorsList.authors) return;
 
-    authorsContainer.innerHTML = ""; // Clear existing content
+        authorsContainer.innerHTML = ""; // Clear existing content
 
-    Object.entries(AuthorsList.authors).forEach(([author, posts]) => {
-        const postCount = posts.length;
-        const isSubscribed = app.data.subscriptions?.includes(author);
-        const buttonText = isSubscribed ? "Unfollow" : "Follow";
-        const buttonClass = isSubscribed ? "unfollow-button" : "follow-button";
+        Object.entries(AuthorsList.authors).forEach(([author, posts]) => {
+            const postCount = posts.length;
+            const isSubscribed = app.data.subscriptions?.includes(author);
+            const buttonText = isSubscribed ? "Unfollow" : "Follow";
+            const buttonClass = isSubscribed ? "unfollow-button" : "follow-button";
 
-        const authorElement = document.createElement('div');
-        authorElement.className = "author-item";
+            const authorElement = document.createElement('div');
+            authorElement.className = "author-item";
 
-        authorElement.innerHTML = `
-            <div class="author-info">
-                <h3 class="author-name">${author}</h3>
-                <p class="post-count">Posts: ${postCount}</p>
-            </div>
-            <button class="${buttonClass}">${buttonText}</button>
-        `;
+            authorElement.innerHTML = `
+                <div class="author-info">
+                    <h3 class="author-name">${author}</h3>
+                    <p class="post-count">Posts: ${postCount}</p>
+                </div>
+                <button class="${buttonClass}">${buttonText}</button>
+            `;
 
-        const followButton = authorElement.querySelector('button');
-        followButton.addEventListener('click', async () => {
-            console.log(author);
-            if (isSubscribed) {
-                const res = await APIs.unfollow(author);
-                console.log(res);
-                
-                app.data.subscriptions = app.data.subscriptions.filter(sub => sub !== author);
-                this.render();
-                loadStories();
-                
-            } else {
-                const res = await APIs.follow(author);
-                console.log(res);
-                
-                app.data.subscriptions.push(author);
-                this.render();
-                window.dispatchEvent(new Event("subs")); // why?
-                loadStories();
-            }
+            const followButton = authorElement.querySelector('button');
+            followButton.addEventListener('click', async () => {
+                console.log(author);
+                if (isSubscribed) {
+                    const res = await APIs.unfollow(author);
+                    app.data.subscriptions = app.data.subscriptions.filter(sub => sub !== author);
+                    this.render();
+                    loadStories();
+                    
+                } else {
+                    const res = await APIs.follow(author);
+                    app.data.subscriptions.push(author);
+                    this.render();
+                    // window.dispatchEvent(new Event("subs")); // why?
+                    loadStories();
+                }
+            });
+
+            authorsContainer.appendChild(authorElement);
         });
-
-        authorsContainer.appendChild(authorElement);
-    });
-}
-
-
+    }
 }
 
 customElements.define("authors-list", AuthorsList);

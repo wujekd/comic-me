@@ -1,5 +1,7 @@
+import { API_CONFIG } from "../config.js";
 import router from "../services/router.js";
 import { loadStories } from "../services/stories.js";
+import topMenu from "./topMenu.js"
 
 export class LoginPage extends HTMLElement {
     constructor(){
@@ -26,7 +28,7 @@ export class LoginPage extends HTMLElement {
 
             try {
                 document.getElementById("login").innerHTML = "Logging in...";
-                const response = await fetch("https://lx4u7ljrr0.execute-api.us-east-1.amazonaws.com/M00879927/login", {
+                const response = await fetch(API_CONFIG.loginUrl, {
                     method: "POST",
                     body: json,
                     headers: {

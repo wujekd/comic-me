@@ -69,8 +69,8 @@ export const handleLogout = ()=> {
     sessionStorage.removeItem("username");
     sessionStorage.removeItem("subbed");
 
-    app.data.logged = null;
-    topMenu.render() // once logged is null render to remove event listeners to subscription and stories data change 
+    app.data.logged = false;
+    // topMenu.render() // once logged is null render to remove event listeners to subscription and stories data change 
     app.data.subscriptions = null;
     app.data.stories = null;
 
