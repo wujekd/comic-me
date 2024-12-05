@@ -90,6 +90,9 @@ export default {
             window.addEventListener("storiesloaded", updateStories);
             window.addEventListener("subs", updateSubs);
 
+            document.getElementById("storycount").textContent = app.data.stories?.length || 0;
+            document.getElementById("subcount").textContent = app.data.subscriptions?.length || 0
+
             // Save event listeners for removal later
             this._evListeners.push({ event: "storiesloaded", listener: updateStories });
             this._evListeners.push({ event: "subs", listener: updateSubs });

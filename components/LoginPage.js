@@ -46,7 +46,6 @@ export class LoginPage extends HTMLElement {
                     const result = await response.json();
 
                     sessionStorage.setItem("jwt", result.token);
-                    sessionStorage.setItem("name", result.username);
                     sessionStorage.setItem("subbed", result.subbed);
                     app.data.logged = result.username;
                     app.data.subscriptions = result.subbed;
