@@ -17,7 +17,6 @@ export class StoriesPage extends HTMLElement {
         loadCSS();
     }
 
-
     connectedCallback(){
         const temp = document.getElementById('stories-template');
         const node = temp.content.cloneNode(true);

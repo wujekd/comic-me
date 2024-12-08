@@ -43,53 +43,60 @@ export class AuthorsList extends HTMLElement {
     render() {
         
         const authorsContainer = this.querySelector('#authors-container');
+
         if (!authorsContainer || !AuthorsList.authors) return;
-
+        
         authorsContainer.innerHTML = ""; // Clear existing content
-
+    
         Object.entries(AuthorsList.authors).forEach(([author, posts]) => {
             const postCount = posts.length;
             const isSubscribed = app.data.subscriptions?.includes(author);
             const buttonText = isSubscribed ? "Unfollow" : "Follow";
             const buttonClass = isSubscribed ? "unfollow-button" : "follow-button";
-
+            const isLogged = app.data.logged !== null;
+    
             const authorElement = document.createElement('div');
             authorElement.className = "author-item";
-
+    
             authorElement.innerHTML = `
                 <div class="author-info">
                     <h3 class="author-name">${author}</h3>
                     <p class="post-count">Posts: ${postCount}</p>
                 </div>
-                <button class="${buttonClass}">${buttonText}</button>
+                <button class="${buttonClass}" ${!isLogged ? 'disabled' : ''}>${buttonText}</button>
             `;
-
+    
             const followButton = authorElement.querySelector('button');
-            followButton.addEventListener('click', async () => {
-                console.log(author);
-                if (isSubscribed) {
-                    const res = await APIs.unfollow(author);
-                    app.data.subscriptions = app.data.subscriptions.filter(sub => sub !== author);
-                    this.render();
-                    loadStories();
-                    
-                } else {
-                    const res = await APIs.follow(author);
-                    console.log(author);
-                    
-                    app.data.subscriptions.push(author);
-                    const subscriptions = app.data.subscriptions ? app.data.subscriptions : [];
-                    sessionStorage.setItem("subbed", subscriptions.join("."));
+    
+            if (isLogged) {
+                followButton.addEventListener('click', async () => {
+                    if (isSubscribed) {
+                        authorElement.querySelector("button").style.backgroundColor = "var(--color5)";
+                        const res = await APIs.unfollow(author);
+                        app.data.subscriptions = app.data.subscriptions.filter(sub => sub !== author);
+                        
+                        setTimeout(() => {
+                            this.render();
+                            loadStories();
+                        }, 300);
 
-                    this.render();
-                    topMenu.render();
-                    loadStories();
-                }
-            });
-
+                    } else {
+                        authorElement.querySelector("button").style.backgroundColor = "var(--color5)";
+                        const res = await APIs.follow(author);
+                        app.data.subscriptions.push(author);
+                        const subscriptions = app.data.subscriptions ? app.data.subscriptions : [];
+                        sessionStorage.setItem("subbed", subscriptions.join("."));
+                        
+                        setTimeout(() => {
+                            this.render();
+                            loadStories();
+                        }, 300);
+                    }
+                });
+            }
             authorsContainer.appendChild(authorElement);
         });
-    }
+    }    
 }
 
 customElements.define("authors-list", AuthorsList);

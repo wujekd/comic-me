@@ -1,4 +1,5 @@
 import APIs from "../services/APIs.js";
+import router from "../services/router.js";
 
 export class YourStories extends HTMLElement {
 
@@ -17,6 +18,10 @@ export class YourStories extends HTMLElement {
         window.addEventListener("yourStoriesChange", ()=> {
             this.render();
         });
+
+        this.querySelector("#add-story-button").addEventListener("click", ()=>{
+            router.go("/add-story");
+        })
 
         if (!app.data.yourStories){
             this.loadUserStories().then(() => { this.render(); })
@@ -46,9 +51,14 @@ export class YourStories extends HTMLElement {
             
             for (let story of app.data.yourStories){
                 const storyItem = document.createElement('div');
+                console.log(story)
                 storyItem.innerHTML = `
-                    <h2>${story.title.S}</h2>
-                    <p>${story.description.S}`
+                    <div class="info">
+                        <h2>${story.title.S}</h2>
+                        <p>${story.description.S}
+                    </div>
+                    <img src="${story.imageUrl.S}" class="ur-pic-list" />
+                    `
 
                 this.querySelector("#story-items").append(storyItem);
             }

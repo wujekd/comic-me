@@ -31,14 +31,15 @@ export default {
 
         if (app.data.logged) {
             // User is logged in
-            const addStoryLink = `<a class="navlink dynamic-navlink material-symbols-outlined" id="" href="/add-story">Add <span class="nav-text">Story</span></a>`;
+            const addStoryLink = `<a class="navlink dynamic-navlink material-symbols-outlined" id="" href="/add-story">Add <span href="/add-story" class="nav-text">Story</span></a>`;
             const yourStoriesLink = `<a class="navlink dynamic-navlink nav-text material-symbols-outlined" href="/your-stories">Your Stories</a>`;
             const logoutLink = `<a class="navlink dynamic-navlink material-symbols-outlined" href="/logout">logout</a>`;
             const searchLink = `<a class="navlink dynamic-navlink material-symbols-outlined" id="" href="/search">search</a>`;
             nav.insertAdjacentHTML('beforeend', yourStoriesLink);
+            nav.insertAdjacentHTML('beforeend', addStoryLink);
             nav.insertAdjacentHTML('beforeend', searchLink);
             nav.insertAdjacentHTML('beforeend', logoutLink);
-            nav.insertAdjacentHTML('beforeend', addStoryLink);
+            
         } else {
             console.log("NOT logged from menu");
             // User is not logged in

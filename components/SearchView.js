@@ -62,10 +62,12 @@ export class SearchView extends HTMLElement {
 
                 resultElement.innerHTML = `
                     <img class="result-image" src="${imageUrl}" alt="Image for ${title}" style="max-height: 17rem; width: auto;">
-                    <h3 class="result-title">${title}</h3>
-                    <p class="result-author"><strong>Author:</strong> ${author}</p>
-                    <p class="result-description">${description}</p>
-                    <p class="result-tags"><strong>Tags:</strong> ${tags}</p>
+                    <div class="res-info"> 
+                        <h3 class="result-title">${title}</h3>
+                        <p class="result-author"><strong>Author:</strong> ${author}</p>
+                        <p class="result-description">${description}</p>
+                        <p class="result-tags"><strong>Tags:</strong> ${tags}</p>
+                    </div>
                 `;
                 
                 resultsContainer.appendChild(resultElement);
@@ -96,27 +98,30 @@ export class SearchView extends HTMLElement {
     
         const followButton = userElement.querySelector('button');
         followButton.addEventListener('click', async () => {
-            console.log(user);
             if (isSubscribed) {
+                followButton.style.backgroundColor = "var(--color5)";
                 const res = await APIs.unfollow(user);
                 console.log(res);
                 
                 app.data.subscriptions = app.data.subscriptions.filter(sub => sub !== user);
-                this.renderUser(user);
 
-                loadStories();
+                setTimeout(() => {
+                    this.renderUser(user);
+                    loadStories();
+                }, 300);
             } else {
+
+                followButton.style.backgroundColor = "var(--color5)";
                 const res = await APIs.follow(user);
                 console.log(res);
                 
-                
                 app.data.subscriptions.push(user);
-
                 window.dispatchEvent(new Event("subs"))
 
-                this.renderUser(user);
-
-                loadStories();
+                setTimeout(() => {
+                    this.renderUser(user);
+                    loadStories();
+                }, 300);
             }
         });
     

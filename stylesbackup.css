@@ -444,29 +444,24 @@ nav {
     color: var(--background-surface);
 }
 
-#story-items > div {
-    display: flex;
-    justify-content: space-around;
-    background-color: var(--secondaryColor);
+#story-items div {
+    background-color: var(--color4);
     color: white;
     padding: 10px;
-    border-radius: 9px;
+    border-radius: 4px;
     margin-bottom: 10px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
-.info {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-    border-radius: 9px;
-    flex-direction: column;
-    width: 60%;
-    background-color: var(--primaryColor);
+
+#story-items div h2 {
+    margin: 0;
+    font-size: 1.2em;
 }
 
-.ur-pic-list {
-    max-width: 6rem;
+#story-items div p {
+    margin: 5px 0 0 0;
+    font-size: 0.9em;
+    color: var(--color6);
 }
 
 /* AUTHORS LIST  */
@@ -648,8 +643,7 @@ nav {
     padding: 20px;
     max-width: 800px;
     margin: 0 auto;
-    background-color: var(--color6);
-    border: 1px solid var(--color4);
+    background-color: var(--primaryColor);
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
@@ -668,15 +662,12 @@ nav {
 fieldset {
     border: 1px solid var(--secondaryColor);
     border-radius: 8px;
-    padding: 19px;
+    padding: 10px;
 }
 
 legend {
     font-weight: bold;
     color: var(--background-surface);
-    background-color: var(--primaryColor);
-    padding: 8px;
-    border-radius: 9px;
 }
 
 label {
@@ -726,40 +717,19 @@ input[type="radio"] {
 }
 
 .result-item {
-    display: flex;
-    justify-content: space-between;
-    gap:10px;
     padding: 15px;
     margin-bottom: 10px;
-    background-color: var(--primaryColor);
+    background-color: var(--color6);
     border: 1px solid var(--secondaryColor);
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-.result-image {
-    width: 20%
-}
-.res-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: var(--color6);
-    width: 70%;
-    color: black;
-}
 
-.user-item{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: var(--color4);
-    border: 1px solid var(--secondaryColor);
-    border-radius: 9px;
-    padding: 6px;
-    width: 10rem;
+#search-results-container p {
+    color: white;
+    text-align: center;
+    font-style: italic;
 }
-
-
 fieldset {
     background-color: var(--highlight-faded);
 }
@@ -768,8 +738,6 @@ fieldset {
 
 /* Style for the add story section */
 #add-story {
-    display: flex;
-    flex-direction: column;
     padding: 20px;
     max-width: 800px;
     margin: 0 auto;
@@ -777,9 +745,6 @@ fieldset {
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
-}
-.add-story > div {
-    background-color: var(--color6);
 }
 
 /* Style for the image upload section */
@@ -860,7 +825,6 @@ fieldset {
     border: 1px solid var(--secondaryColor);
     border-radius: 8px;
     transition: border-color 0.3s;
-    width: 90%;
 }
 
 #postForm input[type="text"]:focus,

@@ -10,10 +10,6 @@ h3 {
     font-size: 17px;
 }
 
-/* #books{
-    background-color: var(--color4);
-} */
-
 button {
     display: block;
     background-color: var(--color5);
@@ -85,20 +81,6 @@ li:last-child {
     padding: 0 8px;
 }
 
-.price, .price-total {
-    color: var(--secondaryColor);
-    flex: 1;
-
-    text-align: right;
-}
-
-.price-total {
-    font-weight: bold;
-    font-size: 17px;
-    flex: 2;
-    text-align: left;
-}
-
 
 a {
     text-decoration: none;
@@ -118,13 +100,12 @@ input {
     border-radius: 15px;
 }
 
-
-
-
-
 section {
     background-color: var(--color6);
     border-radius: 8px;
+}
+#stories-page {
+    border: 1px solid var(--color4);
 }
 
 .story-div {
@@ -133,15 +114,18 @@ section {
     justify-content: space-between;
     height: 17rem;
     gap: 1rem;
-    
+    background-color: var(--primaryColor);
+    margin: 1rem;
     padding: 1rem;
     border-radius: 8px;
+    border: 1px solid var(--color5);
 }
 
 .story-info h2 {
     max-height: 1rem;
     flex-shrink: 1;
-    color: var(--color4);
+    color: var(--color1);
+    
     
     margin: 0;
 }
@@ -151,9 +135,11 @@ section {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    background-color: var(--color3);
+    background-color: var(--color4);
     width: 60%;
     height: 90%;
+    color: white;
+    border: 1px solid var(--color4);
 
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
