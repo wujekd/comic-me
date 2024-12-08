@@ -38,7 +38,7 @@ export class LoginPage extends HTMLElement {
                 console.log(response)
                 if (!response.ok) {
                     document.getElementById("login").innerHTML = `
-                    <h2>Wrong credentials!</h2>
+                    <h2 id="wrongCredentials">Wrong credentials!</h2>
                     `;
                     setTimeout(()=> { router.go("/login")}, 3000)
                 } else {

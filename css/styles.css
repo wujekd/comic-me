@@ -1,7 +1,7 @@
 :root {
     --background-surface: #EFEFEF;
     --primaryColor: #43281C;
-    --secondaryColor: #333D29;
+    --secondaryColor: #151027cd;
     --color3: #7F4F24;
     --color4: #B08968;
     --color5: #DDB892;
@@ -20,6 +20,7 @@ body {
     padding: 0;
     margin: 0;
     font-family: 'Open Sans', sans-serif;
+    background-color: var(--secondaryColor);
 }
 
 body>header {
@@ -60,6 +61,14 @@ body, h1, nav, a {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+#logo {
+    position: absolute;
+    width: 12rem;
+    top: 2rem;
+    left: -1rem;
+    z-index: -23;
 }
 
 /* Header Styling */
@@ -125,7 +134,7 @@ nav {
     position: relative;
     padding-top: 1.2rem;
 
-    border: 1px solid var(--color4);
+    border: 2px solid var(--color4);
 }
 
 
@@ -146,7 +155,7 @@ nav {
 }
 
 .cta-button:hover {
-    background-color: var(--btnhover);
+    background-color: var(--secondaryColor);
     transform: scale(1.05);
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
 }
@@ -166,14 +175,19 @@ nav {
     max-width: 400px;
     margin: 50px auto;
     padding: 20px;
-    background-color: var(--primaryColor);
+    background-color: var(--secondaryColor);
     border: 1px solid var(--color3);
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
     height: 24rem;
 }
+#wrongCredentials {
+    padding: 14px;
+    background-color: var(--alert);
+    border-radius: 9px;
 
+}
 /* Style for the heading */
 #login h1 {
     text-align: center;
@@ -188,6 +202,8 @@ nav {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    margin-bottom: 0.5rem;
+    padding-top: 0.6rem;
 }
 
 /* Style for labels */
@@ -226,6 +242,7 @@ nav {
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 1rem;
 }
 
 #login-form button:hover {
@@ -432,7 +449,7 @@ nav {
 }
 
 #stories-list {
-    background-color: var(--highlight-faded);
+    background-color: var(--primaryColor);
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -447,8 +464,8 @@ nav {
 #story-items > div {
     display: flex;
     justify-content: space-around;
-    background-color: var(--secondaryColor);
-    color: white;
+    background-color: var(--color6);
+    color: black;
     padding: 10px;
     border-radius: 9px;
     margin-bottom: 10px;
@@ -462,7 +479,6 @@ nav {
     border-radius: 9px;
     flex-direction: column;
     width: 60%;
-    background-color: var(--primaryColor);
 }
 
 .ur-pic-list {
@@ -778,9 +794,7 @@ fieldset {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
 }
-.add-story > div {
-    background-color: var(--color6);
-}
+
 
 /* Style for the image upload section */
 .image-upload {

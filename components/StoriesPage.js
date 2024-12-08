@@ -56,7 +56,10 @@ export class StoriesPage extends HTMLElement {
                 this.root.querySelector("#stories").innerHTML = "Loading Stories...";
             }
         } else {
-            this.root.querySelector("#stories").innerHTML = "Login to see stories...";
+            this.root.querySelector("#stories").innerHTML = "<button id='login-btn'>Login</button> to see stories...";
+            this.root.querySelector("#login-btn").addEventListener("click", ()=> {
+                router.go("/login");
+            })
         }
     }
     
