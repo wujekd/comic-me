@@ -10,9 +10,9 @@
 
     --highlight-faded: #16525a;
 
-    --alert: #9f2d6c;
+    --alert: #672549;
 
-    --alert-faded: #5c183e;
+    --alert-faded: #7b2957;
     --btnhover: #534f3b;
 }
 
@@ -33,6 +33,7 @@ body>main {
     margin: auto;
     margin-top: 78px;
     max-width: 70vw;
+    margin-bottom: 2rem;
 }
 
 your-stories {
@@ -175,12 +176,13 @@ nav {
     max-width: 400px;
     margin: 50px auto;
     padding: 20px;
-    background-color: var(--secondaryColor);
-    border: 1px solid var(--color3);
+    background-color: var(--color6);
+    border: 2px solid var(--color4);
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
     height: 24rem;
+    color: black;
 }
 #wrongCredentials {
     padding: 14px;
@@ -192,7 +194,7 @@ nav {
 #login h1 {
     text-align: center;
     font-size: 1.8rem;
-    color: white;
+    color: black;
     margin-bottom: 20px;
 }
 
@@ -209,7 +211,7 @@ nav {
 /* Style for labels */
 #login-form label {
     font-size: 0.9rem;
-    color: var(--secondaryColor);
+    color: black;
     display: flex;
     flex-direction: column;
 }
@@ -221,16 +223,13 @@ nav {
     border: 1px solid var(--secondaryColor);
     border-radius: 5px;
     margin-top: 5px;
-    transition: border-color 0.3s;
 }
 
 #login-form input:focus {
     border-color: var(--highlight);
     outline: none;
 }
-#login-form label {
-    color: white;
-}
+
 /* Style for the submit button */
 #login-form button {
     padding: 10px 15px;
@@ -246,7 +245,7 @@ nav {
 }
 
 #login-form button:hover {
-    background-color: var(--btnhover);
+    background-color: var(--primaryColor);
     transform: scale(1.05);
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
 }
@@ -587,6 +586,10 @@ nav {
 /* DETAIL VIEW  */
 
 #story-detail-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 20px;
     background-color: var(--color6);
     border-radius: 8px;
@@ -595,13 +598,25 @@ nav {
     margin: 20px auto;
     font-family: Arial, sans-serif;
 }
+#back-btn {
+    position: absolute;
+    background-color: var(--highlight);
+    bottom: 4rem;
+    z-index: 300;
+    left: 2rem;
+    border: 2px solid var(--color4);
+    padding: 0.5rem;
+    border-radius: 9px;
+    color: white;
+}
 
 .story-info {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    background-color: var(--color3);
+    justify-items: center;
+    background-color: var(--primaryColor);
     width: 90%;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -634,7 +649,7 @@ nav {
     width: auto;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-right: 3rem;
+    margin-bottom: 1rem;
 }
 
 .story-div {
@@ -785,6 +800,8 @@ fieldset {
 /* Style for the add story section */
 #add-story {
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
     padding: 20px;
     max-width: 800px;
@@ -807,6 +824,7 @@ fieldset {
     border-radius: 8px;
     background-color: var(--color6);
     margin-bottom: 20px;
+    width: 84%;
 }
 
 .image-placeholder {
@@ -858,6 +876,7 @@ fieldset {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    width: 84%;
 }
 
 #postForm label {
@@ -874,7 +893,7 @@ fieldset {
     border: 1px solid var(--secondaryColor);
     border-radius: 8px;
     transition: border-color 0.3s;
-    width: 90%;
+    width: 97%;
 }
 
 #postForm input[type="text"]:focus,

@@ -1,4 +1,5 @@
 import APIs from "../services/APIs.js";
+import router from "../services/router.js";
 
 export class StoryDetail extends HTMLElement {
     constructor() {
@@ -12,6 +13,10 @@ export class StoryDetail extends HTMLElement {
 
         const urlParams = new URLSearchParams(window.location.search);
         const storyId = urlParams.get('id');
+
+        this.querySelector("#back-btn").addEventListener("click", ()=>{
+            router.go("/stories")
+        })
 
         if (storyId) {
             let story = null;

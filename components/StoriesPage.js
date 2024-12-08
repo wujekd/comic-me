@@ -53,7 +53,7 @@ export class StoriesPage extends HTMLElement {
                     this.root.querySelector("#stories").appendChild(storyItem);
                 }
             } else {
-                this.root.querySelector("#stories").innerHTML = "Loading Stories...";
+                this.root.querySelector("#stories").innerHTML = "<div>Loading Stories...</div>";
             }
         } else {
             this.root.querySelector("#stories").innerHTML = "<button id='login-btn'>Login</button> to see stories...";

@@ -27,7 +27,7 @@ export class LoginPage extends HTMLElement {
             console.log(json)
 
             try {
-                document.getElementById("login").innerHTML = "<h2 style='color: white'>Logging in...</h2>";
+                document.getElementById("login").innerHTML = "<h2 style='color: black'>Logging in...</h2>";
                 const response = await fetch(API_CONFIG.loginUrl, {
                     method: "POST",
                     body: json,
@@ -53,7 +53,7 @@ export class LoginPage extends HTMLElement {
                     loadStories();
 
                     document.getElementById("login").innerHTML = `
-                        <h1 style='color: white'>Hello ${ result.username }!</h1>
+                        <h1 style='color: black'>Hello ${ result.username }!</h1>
                         `;
                     setTimeout(()=> { router.go("/stories")}, 1200);
                 }
