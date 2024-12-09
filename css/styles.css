@@ -36,14 +36,6 @@ body>main {
     margin-bottom: 2rem;
 }
 
-your-stories {
-    width: 100%;
-}
-#your-stories {
-    width: 100%;
-
-}
-
 h1 {
     margin: 0;
     text-align: center;
@@ -373,8 +365,7 @@ nav {
     padding: 2rem;
     
     font-family: Arial, sans-serif;
-
-    border: 1px solid var(--color4);
+    border: 2px solid var(--color4);
     
     background-color: var(--color6);
 }
@@ -386,8 +377,8 @@ nav {
     margin-bottom: 20px;
     background-color: var(--primaryColor);
     padding: 1rem;
-
-    border: 1px solid var(--color4);
+    
+    border: 2px solid var(--color4);
     border-radius: 8px;
 }
 
@@ -449,6 +440,7 @@ nav {
 
 #stories-list {
     background-color: var(--primaryColor);
+    border: 2px solid var(--color4);
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -803,13 +795,15 @@ fieldset {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 20px;
+    padding-bottom: 20px;
     max-width: 800px;
     margin: 0 auto;
     background-color: var(--primaryColor);
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
+    color: white;
+    border: 2px solid var(--color4);
 }
 
 
@@ -820,7 +814,7 @@ fieldset {
     align-items: center;
     justify-content: center;
     padding: 20px;
-    border: 1px solid var(--color3);
+    border: 2px solid var(--color4);
     border-radius: 8px;
     background-color: var(--color6);
     margin-bottom: 20px;
@@ -876,12 +870,16 @@ fieldset {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    width: 84%;
+    width: 85%;
+    background-color: var(--color6);
+    border: 2px solid var(--color4);
+    padding: 1rem;
+    border-radius: 9px;
 }
 
 #postForm label {
     font-size: 0.9rem;
-    color: var(--background-surface);
+    color: black;
     display: flex;
     flex-direction: column;
 }
