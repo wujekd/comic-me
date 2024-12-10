@@ -25,7 +25,6 @@ export class RegisterPage extends HTMLElement {
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
 
-            console.log(JSON.stringify(data))
 
 
             try {

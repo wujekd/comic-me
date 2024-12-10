@@ -12,10 +12,8 @@ export default {
         nav.querySelectorAll('.dynamic-navlink').forEach(element => element.remove());
 
         // Remove old event listeners if they exist
-        console.log("evListeners: ", this._evListeners);
         if (this._evListeners.length > 0) {
             this._evListeners.forEach(({ event, listener }) => {
-                console.log("!! REMOVE EV LISTENER !!", event);
                 window.removeEventListener(event, listener);
             });
             this._evListeners = []; // Clear stored listeners
@@ -23,7 +21,6 @@ export default {
 
         if (this._navListeners.length > 0) {
             this._navListeners.forEach(({ element, listener }) => {
-                console.log("!! REMOVE NAV LISTENER !!", element);
                 element.removeEventListener('click', listener);
             });
             this._navListeners = []; // Clear stored listeners
@@ -41,7 +38,6 @@ export default {
             nav.insertAdjacentHTML('beforeend', logoutLink);
             
         } else {
-            console.log("NOT logged from menu");
             // User is not logged in
             const registerLink = `<a class="navlink dynamic-navlink material-symbols-outlined" href="/register">how_to_reg</a>`;
             const loginLink = `<a class="navlink dynamic-navlink material-symbols-outlined" href="/login">login</a>`;
@@ -98,7 +94,6 @@ export default {
             this._evListeners.push({ event: "storiesloaded", listener: updateStories });
             this._evListeners.push({ event: "subs", listener: updateSubs });
         } else {
-            console.log("top menu render NOT logged:", app.data.logged);
 
             userStats.textContent = "User Not Logged In!";
 
@@ -109,8 +104,5 @@ export default {
                 this._evListeners = []; // Clear saved references
             }
         }
-
-        console.log(this._evListeners);
-        console.log(this._navListeners);
     },
 };

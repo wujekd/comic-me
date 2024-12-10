@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken';
 const secretKey = 'my-super-secret-key';
 
 export const handler = async (event) => {
-    console.log("JWT validation handler invoked");
 
     try {
         // Extract the token from the Authorization header
@@ -23,8 +22,6 @@ export const handler = async (event) => {
 
         // Verify the JWT
         const decoded = jwt.verify(token, secretKey);
-
-        console.log("Decoded JWT payload:", decoded);
 
         if (!decoded.username) {
             return {

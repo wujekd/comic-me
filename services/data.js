@@ -21,19 +21,16 @@ const proxiedData = new Proxy(Data, {
                 break;
 
             case "subscriptions":
-                console.log("subs event dispatched");
                 const subscriptions = app.data.subscriptions ? app.data.subscriptions : [];
                 sessionStorage.setItem("subbed", subscriptions.join("."));
                 window.dispatchEvent(new Event('subs'));
                 break;
                 
             case "logged":
-                console.log("logged event triggered")
                 window.dispatchEvent(new Event("logged"))
                 break;
 
             case "yourStories":
-                console.log("yourStoriesChange event dispatched");
                 window.dispatchEvent(new Event("yourStoriesChange"));
                 break;
         }
@@ -47,8 +44,6 @@ export const initState = () => {
 
     const token = sessionStorage.getItem("jwt");
     const payload = JSON.parse(atob(token.split('.')[1]));
-    
-    console.log( "remaining token time: ", payload.exp - Math.floor(Date.now() / 1000) )
 
     if ( payload.exp > Math.floor(Date.now() / 1000) ){
 

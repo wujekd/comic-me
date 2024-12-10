@@ -49,7 +49,7 @@ export class AddStory extends HTMLElement {
     
         try {
             
-            const response = await fetch("https://lx4u7ljrr0.execute-api.us-east-1.amazonaws.com/M00879927/contents", {
+            const response = await fetch("https://lx4u7ljrr0.execute-api.us-east-1.amazonaws.com/M00879027/contents", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -57,14 +57,13 @@ export class AddStory extends HTMLElement {
                 },
                 body: JSON.stringify(postData),
             });
-            console.log(" RES -- ", response )
     
             if (!response.ok) {
                 throw new Error(response.statusText);
             }
     
             const result = await response.json();
-            console.log("Story added:", result);
+            
     
             
             if (result.upload_url) {
@@ -99,7 +98,6 @@ export class AddStory extends HTMLElement {
                 throw new Error("Failed to upload the image.");
             }
     
-            console.log("Image uploaded successfully.");
         } catch (error) {
             console.error("Error during image upload:", error);
             alert("An error occurred while uploading the image.");

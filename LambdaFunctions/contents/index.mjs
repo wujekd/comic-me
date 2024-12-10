@@ -11,7 +11,6 @@ const REGION = "us-east-1";
 const s3Client = new S3Client({ region: REGION });
 
 export const handler = async (event, context) => {
-  console.log("Event:", JSON.stringify(event)); // Log the incoming event
   let body;
   let statusCode = 200;
   const headers = {
@@ -20,30 +19,23 @@ export const handler = async (event, context) => {
 }
 
   const token = event.headers?.Authorization?.replace("Bearer ", "");
-  console.log("Token:", token); // Log the extracted token
   let decoded = null;
   if (token) {
     decoded = checkToken(token);
-    console.log("Decoded Token:", decoded); // Log the decoded token
   }
 
   try {
-    console.log("HTTP Method:", event.httpMethod); // Log the HTTP method
 
     switch (event.httpMethod) {
       case "GET":
-        console.log("Processing GET request");
         if (event.pathParameters != null) {
           if (decoded) {
-            console.log("GET with path parameters and valid token");
             // Handle item view
           } else {
-            console.log("GET with path parameters but no valid token");
             // Handle unauthorized request
           }
         } else {
           if (decoded) {
-            console.log("GET request with no path parameters");
             const params = {
               TableName: "users",
               Key: {
@@ -53,11 +45,9 @@ export const handler = async (event, context) => {
             };
 
             const subbedResponse = await ddbClient.send(new GetItemCommand(params));
-            console.log("Subbed Response:", JSON.stringify(subbedResponse));
             let subbedList = [];
             if (subbedResponse.Item && subbedResponse.Item.subbed) {
               subbedList = subbedResponse.Item.subbed.L.map(item => item.S);
-              console.log("Subbed List:", subbedList);
             } else {
               body = { response: "No subscriptions" };
               break;
@@ -77,7 +67,6 @@ export const handler = async (event, context) => {
 
             const promises = subbedList.map(userName => getItemsForPartitionKey(userName));
             const results = await Promise.all(promises);
-            console.log("Query Results:", JSON.stringify(results));
 
             body = results.flatMap(result => result.Items);
           } else {
@@ -88,15 +77,12 @@ export const handler = async (event, context) => {
         break;
 
         case "POST":
-          console.log("Processing POST request");
           if (decoded) {
               const requestJSON = JSON.parse(event.body);
-              console.log("Request JSON:", requestJSON);
       
               // Generate a file name for the image
               const fileName = `${decoded.username}/${Date.now()}`;
               const imageUrl = `https://${BUCKET_NAME}.s3.${REGION}.amazonaws.com/${fileName}`;
-              console.log("Image URL:", imageUrl);
               
               const putParams = {
                   TableName: "stories",
@@ -112,10 +98,8 @@ export const handler = async (event, context) => {
                       { removeUndefinedValues: true }
                   ),
               };
-              console.log("Put Params:", putParams);
       
               await ddbClient.send(new PutItemCommand(putParams));
-              console.log("Item successfully added to DynamoDB");
       
               // Generate a pre-signed URL for the image upload
               const command = new PutObjectCommand({
@@ -123,10 +107,8 @@ export const handler = async (event, context) => {
                   Key: fileName,
                   ContentType: "image/jpeg",
               });
-              console.log("S3 Command:", command);
       
               const uploadUrl = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
-              console.log("Pre-Signed URL:", uploadUrl);
       
               body = {
                   message: "Story added successfully.",
@@ -141,7 +123,6 @@ export const handler = async (event, context) => {
       
 
       default:
-        console.log("Unsupported route");
         throw new Error(`Unsupported route: "${event.httpMethod}"`);
     }
   } catch (err) {
@@ -149,7 +130,6 @@ export const handler = async (event, context) => {
     statusCode = 400;
     body = { error: err.message };
   } finally {
-    console.log("Final Response:", body);
     body = JSON.stringify(body);
   }
 

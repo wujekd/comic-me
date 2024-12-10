@@ -6,11 +6,8 @@ const usersTableName = 'users';
 const secretKey = 'my-super-secret-key';
 
 export const handler = async (event) => {
-    console.log("Handler invoked");
 
     try {
-        // Parse the credentials from the request body
-        console.log("Received event:", event);
         const { username, password } = JSON.parse(event.body);
 
         if (!username || !password) {
@@ -23,8 +20,6 @@ export const handler = async (event) => {
                 body: JSON.stringify({ error: 'Username and password are required' }),
             };
         }
-
-        console.log(`Looking up user: ${username}`);
 
         // Query DynamoDB to get the user
         const params = {

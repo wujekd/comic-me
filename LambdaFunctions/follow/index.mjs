@@ -35,7 +35,6 @@ export const handler = async (event, context) => {
             // Fetch the user's current subscriptions
             const getResponse = await ddbClient.send(new GetItemCommand(getParams));
             let subbedList = getResponse.Item ? unmarshall(getResponse.Item).subbed || [] : [];
-            console.log("SUBBED LIST: ", subbedList)
 
             let requestJSON = JSON.parse(event.body);
 
@@ -44,7 +43,6 @@ export const handler = async (event, context) => {
                     const newSub = requestJSON.subTo;
                     // Check if the new subscription already exists
                     if (subbedList.includes(newSub)) {
-                        console.log("User is already subscribed.");
                         body = { response: "already subscribed" };
                         return {
                             statusCode: status,
@@ -78,7 +76,6 @@ export const handler = async (event, context) => {
                     if (subbedList.includes(unsubFrom)) {
                         subbedList = subbedList.filter(sub => sub !== unsubFrom);
                     } else {
-                        console.log("You're not subscribed to this user!");
                         body = { response: "not subscribed" };
                         return {
                             statusCode: status,

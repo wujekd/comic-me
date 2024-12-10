@@ -4,7 +4,6 @@ const dynamoDbClient = new DynamoDBClient({ region: 'us-east-1' });
 const usersTableName = 'users';
 
 export const handler = async (event) => {
-    console.log("Received event:", event);
 
     try {
         // Parse the request body
@@ -14,7 +13,6 @@ export const handler = async (event) => {
 
         // Check if username and password are provided
         if (!username || !password) {
-            console.log("Missing username or password in request");
             return {
                 statusCode: 400,
                 headers: {

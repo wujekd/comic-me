@@ -24,8 +24,6 @@ export class LoginPage extends HTMLElement {
             const data = Object.fromEntries(formData.entries());
             const json = JSON.stringify(data);
 
-            console.log(json)
-
             try {
                 document.getElementById("login").innerHTML = "<h2 style='color: black'>Logging in...</h2>";
                 const response = await fetch(API_CONFIG.loginUrl, {
@@ -35,7 +33,6 @@ export class LoginPage extends HTMLElement {
                         "Content-Type": 'application/json',
                     }
                 });
-                console.log(response)
                 if (!response.ok) {
                     document.getElementById("login").innerHTML = `
                     <h2 id="wrongCredentials">Wrong credentials!</h2>

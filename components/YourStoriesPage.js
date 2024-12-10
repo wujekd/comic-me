@@ -33,7 +33,6 @@ export class YourStories extends HTMLElement {
     async loadUserStories() {
         try {
             const result = await APIs.searchByUser(app.data.logged);
-            console.log(result);
             
             app.data.yourStories = result || [];
         } catch (error) {
@@ -51,7 +50,6 @@ export class YourStories extends HTMLElement {
             
             for (let story of app.data.yourStories){
                 const storyItem = document.createElement('div');
-                console.log(story)
                 storyItem.innerHTML = `
                     <div class="info">
                         <h2>${story.title.S}</h2>
@@ -65,8 +63,7 @@ export class YourStories extends HTMLElement {
 
             
         } else {
-            console.log("render 2", app.data.yourStories);
-            this.querySelector("#story-items").innerHTML = "Loading Stories...";
+            this.querySelector("#story-items").innerHTML = "<div style='color: black; font-size: large;'>Loading Stories...</div>";
         }
     }
 }

@@ -34,7 +34,6 @@ const APIs = {
                 // "Authorization": `Bearer ${token}`, 
             }
         })
-        console.log("getAuthors api res:", result)
         if (!result.ok) {
             throw new Error(`get Authors API error: ${JSON.stringify(result)} ${result.statusText}`);
         }
@@ -93,7 +92,6 @@ const APIs = {
         });
     
         if (!result.ok) {
-            console.log(result);
             throw new Error(`API error: ${JSON.stringify(result)} ${result.statusText}`);
         }
     
@@ -147,14 +145,12 @@ const APIs = {
             }
         });
     
-        console.log("API result find user: ",result)
 
         if (!result.ok) {
             throw new Error(`API error: ${JSON.stringify(result)} ${result.statusText}`);
         }
     
         const response = await result.json();
-        console.log(response);
         return [response.result]
     },
 };

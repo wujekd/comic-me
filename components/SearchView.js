@@ -42,14 +42,12 @@ export class SearchView extends HTMLElement {
     }
 
     renderResults(results) {
-        console.log("results at item render: ", results);
         
         const resultsContainer = this.querySelector('#search-results-container');
         resultsContainer.innerHTML = ""; 
 
         if (results.length > 0) {
             results.forEach(result => {
-                console.log("result: ", result);
                 
                 const resultElement = document.createElement('div');
                 resultElement.className = 'result-item';
@@ -101,7 +99,6 @@ export class SearchView extends HTMLElement {
             if (isSubscribed) {
                 followButton.style.backgroundColor = "var(--color5)";
                 const res = await APIs.unfollow(user);
-                console.log(res);
                 
                 app.data.subscriptions = app.data.subscriptions.filter(sub => sub !== user);
 
@@ -113,8 +110,6 @@ export class SearchView extends HTMLElement {
 
                 followButton.style.backgroundColor = "var(--color5)";
                 const res = await APIs.follow(user);
-                console.log(res);
-                
                 app.data.subscriptions.push(user);
                 window.dispatchEvent(new Event("subs"))
 

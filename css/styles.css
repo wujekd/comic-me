@@ -631,9 +631,10 @@ nav {
 
 .story-description {
     font-size: 1.2em;
-    color: #555;
+    color: white;
     margin-bottom: 20px;
     text-align: justify;
+    padding: 1rem;
 }
 
 .story-image {
