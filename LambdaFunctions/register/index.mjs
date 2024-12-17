@@ -1,4 +1,5 @@
 import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
+import { marshall } from "@aws-sdk/util-dynamodb";
 
 const dynamoDbClient = new DynamoDBClient({ region: 'us-east-1' });
 const usersTableName = 'users';
@@ -23,11 +24,18 @@ export const handler = async (event) => {
             };
         }
 
+
+        //add empty tag list here
+        //marshall it!
+        const subbed = [];
+        const marshalledSubbed = marshall({ subbed }).subbed;
+        
         const params = {
             TableName: usersTableName,
             Item: {
                 username: { S: username },
-                password: { S: password }
+                password: { S: password },
+                subbed: marshalledSubbed,
             }
         };
 
@@ -66,3 +74,7 @@ export const handler = async (event) => {
         };
     }
 };
+
+
+
+// aws lambda update-function-code --function-name contents --zip-file fileb://lambda.zip > /dev/null
