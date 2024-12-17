@@ -110,8 +110,8 @@ export class SearchView extends HTMLElement {
 
                 followButton.style.backgroundColor = "var(--color5)";
                 const res = await APIs.follow(user);
-                app.data.subscriptions.push(user);
-                window.dispatchEvent(new Event("subs"))
+                app.data.subscriptions = [...app.data.subscriptions, user]
+                // window.dispatchEvent(new Event("subs"))
 
                 setTimeout(() => {
                     this.renderUser(user);

@@ -35,8 +35,8 @@ export class AuthorsList extends HTMLElement {
             AuthorsList.authors = authors;
             this.render(authors);
 
-        } catch (error) {
-            this.renderError("Failed to load authors.");
+        } catch (e) {
+            console.error(e);
         }
     }
 
@@ -83,9 +83,9 @@ export class AuthorsList extends HTMLElement {
                     } else {
                         authorElement.querySelector("button").style.backgroundColor = "var(--color5)";
                         const res = await APIs.follow(author);
-                        app.data.subscriptions.push(author);
-                        const subscriptions = app.data.subscriptions ? app.data.subscriptions : [];
-                        sessionStorage.setItem("subbed", subscriptions.join("."));
+                        app.data.subscriptions = [...app.data.subscriptions, author];
+                        // const subscriptions = app.data.subscriptions ? app.data.subscriptions : [];
+                        // sessionStorage.setItem("subbed", subscriptions.join("."));
                         
                         setTimeout(() => {
                             this.render();
